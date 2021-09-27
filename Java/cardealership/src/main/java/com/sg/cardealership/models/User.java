@@ -112,9 +112,5 @@ public class User {
         return "User{" + "email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", passwordHash=" + passwordHash + ", role=" + role + '}';
     }
 
-    
-}
 
-enum Role {
-    ADMIN, SALES
 }
