@@ -5,10 +5,16 @@
  */
 package com.sg.cardealership.dao;
 
+import com.sg.cardealership.models.Contact;
+
 /**
  *
  * @author kavin
  */
 public interface ContactDao {
+    Contact getContact(int id);
 
+    void addContact(Contact user);
+
+    void removeContact(String email);
 }

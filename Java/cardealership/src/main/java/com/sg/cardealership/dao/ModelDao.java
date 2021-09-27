@@ -5,21 +5,21 @@
  */
 package com.sg.cardealership.dao;
 
-import com.sg.cardealership.models.Vehicle;
+import com.sg.cardealership.models.Model;
 import java.util.List;
 
 /**
  *
  * @author kavin
  */
-public interface VehicleDao {
-    List<Vehicle> getAllVehicles();
+public interface ModelDao {
+    List<Model> getAllModels();
 
-    Vehicle getVehicle(String vin);
+    Model getModel(int id);
 
-    void addVehicle(Vehicle vehicle);
+    void addModel(Model model);
 
-    void removeVehicle(String vin);
+    void removeModel(int id);
 
-    void editVehicle(Vehicle vehicle);
+    void editModel(Model model);
 }

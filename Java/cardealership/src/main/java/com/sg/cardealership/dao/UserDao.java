@@ -5,10 +5,21 @@
  */
 package com.sg.cardealership.dao;
 
+import com.sg.cardealership.models.User;
+import java.util.List;
+
 /**
  *
  * @author kavin
  */
 public interface UserDao {
+    List<User> getAllUsers();
 
+    User getUser(String email);
+
+    void addUser(User user);
+
+    void removeUser(String email);
+
+    void editUser(User user);
 }

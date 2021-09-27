@@ -5,6 +5,8 @@
  */
 package com.sg.cardealership.dao;
 
+import com.sg.cardealership.models.Sale;
+import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
 import java.util.List;
 
@@ -12,14 +14,10 @@ import java.util.List;
  *
  * @author kavin
  */
-public interface VehicleDao {
-    List<Vehicle> getAllVehicles();
+public interface SalesDao {
+    List<Sale> getAllSales();
 
-    Vehicle getVehicle(String vin);
+    Sale getSale(User user);
 
-    void addVehicle(Vehicle vehicle);
-
-    void removeVehicle(String vin);
-
-    void editVehicle(Vehicle vehicle);
+    void addSale(User user, Vehicle vehicle);
 }
