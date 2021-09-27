@@ -6,28 +6,23 @@
 package com.sg.cardealership.models;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 /**
  *
  * @author kavin
  */
-public class Model {
+public class Make {
     private int id;
     private String name;
-    private List<Integer> years;
     private LocalDate dateAdded;
     private User user;
-    private Make make;
 
-    public Model(int id, String name, List<Integer> years, LocalDate dateAdded, User user, Make make) {
+    public Make(int id, String name, LocalDate dateAdded, User user) {
         this.id = id;
         this.name = name;
-        this.years = years;
         this.dateAdded = dateAdded;
         this.user = user;
-        this.make = make;
     }
 
     public int getId() {
@@ -38,10 +33,6 @@ public class Model {
         return name;
     }
 
-    public List<Integer> getYears() {
-        return years;
-    }
-
     public LocalDate getDateAdded() {
         return dateAdded;
     }
@@ -50,19 +41,13 @@ public class Model {
         return user;
     }
 
-    public Make getMake() {
-        return make;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 13 * hash + this.id;
-        hash = 13 * hash + Objects.hashCode(this.name);
-        hash = 13 * hash + Objects.hashCode(this.years);
-        hash = 13 * hash + Objects.hashCode(this.dateAdded);
-        hash = 13 * hash + Objects.hashCode(this.user);
-        hash = 13 * hash + Objects.hashCode(this.make);
+        hash = 97 * hash + this.id;
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.dateAdded);
+        hash = 97 * hash + Objects.hashCode(this.user);
         return hash;
     }
 
@@ -77,14 +62,11 @@ public class Model {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Model other = (Model) obj;
+        final Make other = (Make) obj;
         if (this.id != other.id) {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.years, other.years)) {
             return false;
         }
         if (!Objects.equals(this.dateAdded, other.dateAdded)) {
@@ -93,15 +75,12 @@ public class Model {
         if (!Objects.equals(this.user, other.user)) {
             return false;
         }
-        if (!Objects.equals(this.make, other.make)) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Model{" + "id=" + id + ", name=" + name + ", years=" + years + ", dateAdded=" + dateAdded + ", user=" + user + ", make=" + make + '}';
+        return "Make{" + "id=" + id + ", name=" + name + ", dateAdded=" + dateAdded + ", user=" + user + '}';
     }
 
     
