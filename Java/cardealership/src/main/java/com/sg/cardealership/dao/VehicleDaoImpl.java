@@ -2,11 +2,15 @@ package com.sg.cardealership.dao;
 
 import com.sg.cardealership.models.Condition;
 import com.sg.cardealership.models.Make;
+import com.sg.cardealership.models.MileageUnit;
 import com.sg.cardealership.models.Model;
+import com.sg.cardealership.models.Transmission;
 import com.sg.cardealership.models.Trim;
+import com.sg.cardealership.models.Type;
 import com.sg.cardealership.models.Vehicle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -121,5 +125,130 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public void removeVehicleCondition(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public static final class VehicleConditionMapper implements RowMapper<Condition> {
+        @Override
+        public Condition mapRow(ResultSet rs, int rowNum) throws SQLException {
+            
+            MileageUnit mileageUnit = null;
+            
+            if (rs.getString("MileageUnit").equalsIgnoreCase("Kilometers")) {
+                mileageUnit = MileageUnit.KILOMETERS;
+            }
+            
+            if (rs.getString("MileageUnit").equalsIgnoreCase("Miles")) {
+                mileageUnit = MileageUnit.MILES;
+            }
+            
+            Type type = null;
+            
+            if (rs.getString("Type").equalsIgnoreCase("New")) {
+                type = Type.NEW;
+            }
+            
+            if (rs.getString("Type").equalsIgnoreCase("Used")) {
+                type = Type.USED;
+            }
+            
+            Condition condition = new Condition(rs.getInt("Mileage"),
+                                                mileageUnit,
+                                                type);
+            condition.setId(rs.getInt("VehicleConditionID"));
+            
+            return condition;
+        }
+    
+    }
+    
+    
+    public static final class TrimMapper implements RowMapper<Trim> {
+        @Override
+        public Trim mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Transmission transmission = null;
+            
+            if (rs.getString("Transmission").equalsIgnoreCase("Automatic")) {
+                transmission = Transmission.AUTOMATIC;
+            }
+            
+            if (rs.getString("Transmission").equalsIgnoreCase("Manual")) {
+                transmission = Transmission.MANUAL;
+            }
+            
+            Trim trim = new Trim(rs.getString("TrimName"),
+                                 rs.getString("InteriorColorName"),
+                                 rs.getString("ExteriorColorName"),
+                                 transmission);
+            
+            trim.setId(rs.getInt("TrimID"));
+            
+            return trim;
+        }
+    }
+    
+    public static final class MakeMapper implements RowMapper<Make> {
+        @Override
+        public Make mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Make make = new Make(rs.getString("MakeName"), rs.getDate("MakeDateAdded").toLocalDate(), rs.getString("MakeUserEmail"));
+            make.setId(rs.getInt("MakeID"));
+            
+            return make;
+        }
+    }
+    
+    
+    public static final class ModelMapper implements RowMapper<Model> {
+        private final MakeMapper makeMapper;
+
+        public ModelMapper(MakeMapper makeMapper) {
+            this.makeMapper = makeMapper;
+        }
+
+        @Override
+        public Model mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Make make = this.makeMapper.mapRow(rs, rowNum);
+            
+            Model model = new Model(rs.getString("ModelName"), 
+                                    rs.getInt("ModelYear"), 
+                                    rs.getDate("ModelDateAdded").toLocalDate(), 
+                                    rs.getString("ModelUserEmail"),
+                                    make);
+            
+            return model;
+        }
+    }
+    
+    public static final class VehicleMapper implements RowMapper<Vehicle> {
+        private final VehicleConditionMapper vehicleConditionMapper;
+        private final TrimMapper trimMapper;
+        private final ModelMapper modelMapper;
+
+        public VehicleMapper(VehicleConditionMapper vehicleConditionMapper, TrimMapper trimMapper, ModelMapper modelMapper) {
+            this.vehicleConditionMapper = vehicleConditionMapper;
+            this.trimMapper = trimMapper;
+            this.modelMapper = modelMapper;
+        }
+
+        @Override
+        public Vehicle mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Vehicle vehicle = new Vehicle(rs.getString("VIN"),
+                                          rs.getString("BodyStyle"),
+                                          rs.getBlob("Picture"),
+                                          rs.getString("Description"),
+                                          rs.getBigDecimal("SalesPrice"),
+                                          rs.getBigDecimal("MSRP"),
+                                          rs.getBoolean("Featured"));
+            
+            Condition condition = this.vehicleConditionMapper.mapRow(rs, rowNum);
+            vehicle.setVehicleCondition(condition);
+            
+            Model model = this.modelMapper.mapRow(rs, rowNum);
+            vehicle.setModel(model);
+            
+            Trim trim = this.trimMapper.mapRow(rs, rowNum);
+            vehicle.setTrim(trim);
+            
+            return vehicle;
+        }
     }
 }

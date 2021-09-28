@@ -20,10 +20,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,23 +76,17 @@ public class SalesDaoImplTest {
 
         userDao.addUser(admin);
 
-        Make firstMake = new Make("first", LocalDate.now(), admin);
-        Make secondMake = new Make("second", LocalDate.now(), admin);
+        Make firstMake = new Make("first", LocalDate.now(), admin.getEmail());
+        Make secondMake = new Make("second", LocalDate.now(), admin.getEmail());
 
         vehicleDao.addMake(firstMake);
         vehicleDao.addMake(secondMake);
 
-        List<Integer> firstYears = new ArrayList<>();
-        firstYears.add(2012);
-        firstYears.add(2016);
-        Model firstModel = new Model("first model", firstYears, LocalDate.now(), admin, firstMake);
+        Model firstModel = new Model("first model", 2012, LocalDate.now(), admin.getEmail(), firstMake);
 
         vehicleDao.addModel(firstModel);
 
-        List<Integer> secondYears = new ArrayList<>();
-        secondYears.add(2012);
-        secondYears.add(2016);
-        Model secondModel = new Model("second model", secondYears, LocalDate.now(), admin, secondMake);
+        Model secondModel = new Model("second model", 2016, LocalDate.now(), admin.getEmail(), secondMake);
 
         vehicleDao.addModel(secondModel);
 
@@ -145,14 +136,11 @@ public class SalesDaoImplTest {
 
         userDao.addUser(admin);
 
-        Make firstMake = new Make("first", LocalDate.now(), admin);
+        Make firstMake = new Make("first", LocalDate.now(), admin.getEmail());
 
         vehicleDao.addMake(firstMake);
 
-        List<Integer> firstYears = new ArrayList<>();
-        firstYears.add(2012);
-        firstYears.add(2016);
-        Model firstModel = new Model("first model", firstYears, LocalDate.now(), admin, firstMake);
+        Model firstModel = new Model("first model", 2012, LocalDate.now(), admin.getEmail(), firstMake);
 
         vehicleDao.addModel(firstModel);
 
@@ -189,23 +177,17 @@ public class SalesDaoImplTest {
 
         userDao.addUser(admin);
 
-        Make firstMake = new Make("first", LocalDate.now(), admin);
-        Make secondMake = new Make("second", LocalDate.now(), admin);
+        Make firstMake = new Make("first", LocalDate.now(), admin.getEmail());
+        Make secondMake = new Make("second", LocalDate.now(), admin.getEmail());
 
         vehicleDao.addMake(firstMake);
         vehicleDao.addMake(secondMake);
 
-        List<Integer> firstYears = new ArrayList<>();
-        firstYears.add(2012);
-        firstYears.add(2016);
-        Model firstModel = new Model("first model", firstYears, LocalDate.now(), admin, firstMake);
+        Model firstModel = new Model("first model", 2012, LocalDate.now(), admin.getEmail(), firstMake);
 
         vehicleDao.addModel(firstModel);
 
-        List<Integer> secondYears = new ArrayList<>();
-        secondYears.add(2012);
-        secondYears.add(2016);
-        Model secondModel = new Model("second model", secondYears, LocalDate.now(), admin, secondMake);
+        Model secondModel = new Model("second model", 2016, LocalDate.now(), admin.getEmail(), secondMake);
 
         vehicleDao.addModel(secondModel);
 

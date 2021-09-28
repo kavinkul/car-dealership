@@ -73,7 +73,7 @@ public class VehicleDaoTest {
         assertEquals(user, userDao.getUser(user.getEmail()));
         
         // Adding Make
-        Make make = new Make("Hyundai", LocalDate.now(), user);
+        Make make = new Make("Hyundai", LocalDate.now(), user.getEmail());
         
         vehicleDao.addMake(make);
         assertEquals(make, vehicleDao.getMake(make.getId()));
@@ -82,7 +82,7 @@ public class VehicleDaoTest {
         Model model = new Model("Accent", 
                                 2015,
                                 LocalDate.now(), 
-                                user, 
+                                user.getEmail(), 
                                 make);
         
         vehicleDao.addModel(model);
@@ -117,7 +117,7 @@ public class VehicleDaoTest {
         assertEquals(user, userDao.getUser(user.getEmail()));
         
         // Adding Make
-        Make make = new Make("Hyundai", LocalDate.now(), user);
+        Make make = new Make("Hyundai", LocalDate.now(), user.getEmail());
         
         vehicleDao.addMake(make);
         assertEquals(make, vehicleDao.getMake(make.getId()));
@@ -126,7 +126,7 @@ public class VehicleDaoTest {
         Model firstModel = new Model("Accent", 
                                      2015,
                                      LocalDate.now(), 
-                                     user, 
+                                     user.getEmail(), 
                                      make);
         
         vehicleDao.addModel(firstModel);
@@ -135,7 +135,7 @@ public class VehicleDaoTest {
         Model secondModel = new Model("Azera", 
                                       2006,
                                       LocalDate.now(), 
-                                      user, 
+                                      user.getEmail(), 
                                       make);
         
         vehicleDao.addModel(secondModel);
@@ -191,7 +191,7 @@ public class VehicleDaoTest {
         assertEquals(user, userDao.getUser(user.getEmail()));
         
         // Adding Make
-        Make make = new Make("Hyundai", LocalDate.now(), user);
+        Make make = new Make("Hyundai", LocalDate.now(), user.getEmail());
         
         vehicleDao.addMake(make);
         assertEquals(make, vehicleDao.getMake(make.getId()));
@@ -200,7 +200,7 @@ public class VehicleDaoTest {
         Model model = new Model("Accent", 
                                 2015,
                                 LocalDate.now(), 
-                                user, 
+                                user.getEmail(), 
                                 make);
         
         vehicleDao.addModel(model);
@@ -239,7 +239,7 @@ public class VehicleDaoTest {
         assertEquals(user, userDao.getUser(user.getEmail()));
         
         // Adding Make
-        Make make = new Make("Hyundai", LocalDate.now(), user);
+        Make make = new Make("Hyundai", LocalDate.now(), user.getEmail());
         
         vehicleDao.addMake(make);
         assertEquals(make, vehicleDao.getMake(make.getId()));
@@ -248,7 +248,7 @@ public class VehicleDaoTest {
         Model model = new Model("Accent", 
                                 2015,
                                 LocalDate.now(), 
-                                user, 
+                                user.getEmail(), 
                                 make);
         
         vehicleDao.addModel(model);
@@ -286,7 +286,7 @@ public class VehicleDaoTest {
         
         userDao.addUser(user);
         
-        Make make = new Make("Tesla", LocalDate.now(), user);
+        Make make = new Make("Tesla", LocalDate.now(), user.getEmail());
         
         vehicleDao.addMake(make);
         assertEquals(make, vehicleDao.getMake(make.getId()));
@@ -302,8 +302,8 @@ public class VehicleDaoTest {
         
         userDao.addUser(user);
         
-        Make firstMake = new Make("Tesla", LocalDate.now(), user);
-        Make secondMake = new Make("Ford", LocalDate.now(), user);
+        Make firstMake = new Make("Tesla", LocalDate.now(), user.getEmail());
+        Make secondMake = new Make("Ford", LocalDate.now(), user.getEmail());
         
         vehicleDao.addMake(firstMake);
         vehicleDao.addMake(secondMake);
@@ -325,7 +325,7 @@ public class VehicleDaoTest {
         
         userDao.addUser(user);
         
-        Make make = new Make("Tesla", LocalDate.now(), user);
+        Make make = new Make("Tesla", LocalDate.now(), user.getEmail());
         
         vehicleDao.addMake(make);
         assertEquals(make, vehicleDao.getMake(make.getId()));
@@ -347,7 +347,7 @@ public class VehicleDaoTest {
         assertEquals(user, userDao.getUser(user.getEmail()));
         
         // Adding Make
-        Make make = new Make("Hyundai", LocalDate.now(), user);
+        Make make = new Make("Hyundai", LocalDate.now(), user.getEmail());
         vehicleDao.addMake(make);
         
         assertEquals(make, vehicleDao.getMake(make.getId()));
@@ -356,7 +356,7 @@ public class VehicleDaoTest {
         Model model = new Model("Accent", 
                                 2015,
                                 LocalDate.now(), 
-                                user, 
+                                user.getEmail(), 
                                 make);
         vehicleDao.addModel(model);
         
@@ -375,7 +375,7 @@ public class VehicleDaoTest {
         assertEquals(user, userDao.getUser(user.getEmail()));
         
         // Adding Make
-        Make make = new Make("Hyundai", LocalDate.now(), user);
+        Make make = new Make("Hyundai", LocalDate.now(), user.getEmail());
         vehicleDao.addMake(make);
         
         assertEquals(make, vehicleDao.getMake(make.getId()));
@@ -384,14 +384,14 @@ public class VehicleDaoTest {
         Model firstModel = new Model("Accent", 
                                      2015,
                                      LocalDate.now(), 
-                                     user, 
+                                     user.getEmail(), 
                                      make);
         vehicleDao.addModel(firstModel);
         
         Model secondModel = new Model("Azera", 
                                       2006,
                                       LocalDate.now(), 
-                                      user, 
+                                      user.getEmail(), 
                                       make);
         vehicleDao.addModel(secondModel);
         
@@ -415,7 +415,7 @@ public class VehicleDaoTest {
         assertEquals(user, userDao.getUser(user.getEmail()));
         
         // Adding Make
-        Make make = new Make("Hyundai", LocalDate.now(), user);
+        Make make = new Make("Hyundai", LocalDate.now(), user.getEmail());
         vehicleDao.addMake(make);
         
         assertEquals(make, vehicleDao.getMake(make.getId()));
@@ -424,7 +424,7 @@ public class VehicleDaoTest {
         Model model = new Model("Accent", 
                                 2015,
                                 LocalDate.now(), 
-                                user, 
+                                user.getEmail(), 
                                 make);
         vehicleDao.addModel(model);
         
