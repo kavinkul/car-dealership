@@ -10,6 +10,7 @@ import com.sg.cardealership.models.Trim;
 import com.sg.cardealership.models.Type;
 import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,6 +58,221 @@ public class VehicleDaoTest {
         for (User user : userDao.getAllUsers()) {
             userDao.removeUser(user.getEmail());
         }
+    }
+    
+    @Test
+    public void testAddAndGetVehicle() {
+        // Adding User
+        User user = new User("elizbeth@gmail.com",
+                             "Elizbeth",
+                             "Contrera",
+                             "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+                             Role.ADMIN);
+        
+        userDao.addUser(user);
+        assertEquals(user, userDao.getUser(user.getEmail()));
+        
+        // Adding Make
+        Make make = new Make("Hyundai", LocalDate.now(), user);
+        
+        vehicleDao.addMake(make);
+        assertEquals(make, vehicleDao.getMake(make.getId()));
+        
+        // Adding Model
+        Model model = new Model("Accent", 
+                                List.of(2015),
+                                LocalDate.now(), 
+                                user, 
+                                make);
+        
+        vehicleDao.addModel(model);
+        assertEquals(model, vehicleDao.getModel(model.getId()));
+        
+        // Adding Vehicle
+        Vehicle vehicle = new Vehicle("123456789012AS567",
+                                      model,
+                                      new Condition(1000, MileageUnit.KILOMETERS, Type.NEW),
+                                      "Subcompact",
+                                      null,
+                                      "clean and reliable",
+                                      new Trim("trim", "black", "red", Transmission.AUTOMATIC),
+                                      new BigDecimal("24500"),
+                                      new BigDecimal("27000.60"),
+                                      false);
+        
+        vehicleDao.addVehicle(vehicle);
+        assertEquals(vehicle, vehicleDao.getVehicle(vehicle.getVIN()));
+    }
+    
+    @Test
+    public void testGetAllVehicles() {
+        // Adding User
+        User user = new User("elizbeth@gmail.com",
+                             "Elizbeth",
+                             "Contrera",
+                             "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+                             Role.ADMIN);
+        
+        userDao.addUser(user);
+        assertEquals(user, userDao.getUser(user.getEmail()));
+        
+        // Adding Make
+        Make make = new Make("Hyundai", LocalDate.now(), user);
+        
+        vehicleDao.addMake(make);
+        assertEquals(make, vehicleDao.getMake(make.getId()));
+        
+        // Adding Models
+        Model firstModel = new Model("Accent", 
+                                     List.of(2015),
+                                     LocalDate.now(), 
+                                     user, 
+                                     make);
+        
+        vehicleDao.addModel(firstModel);
+        assertEquals(firstModel, vehicleDao.getModel(firstModel.getId()));
+        
+        Model secondModel = new Model("Azera", 
+                                      List.of(2006, 2007, 2008),
+                                      LocalDate.now(), 
+                                      user, 
+                                      make);
+        
+        vehicleDao.addModel(secondModel);
+        assertEquals(secondModel, vehicleDao.getModel(secondModel.getId()));
+        
+        // Adding Vehicles
+        Vehicle firstVehicle = new Vehicle("123456789012AS567",
+                                           firstModel,
+                                           new Condition(1000, MileageUnit.KILOMETERS, Type.NEW),
+                                           "Subcompact",
+                                           null,
+                                           "clean and reliable",
+                                           new Trim("trim", "black", "red", Transmission.AUTOMATIC),
+                                           new BigDecimal("24500"),
+                                           new BigDecimal("27000.60"),
+                                           false);
+        
+        vehicleDao.addVehicle(firstVehicle);
+        assertEquals(firstVehicle, vehicleDao.getVehicle(firstVehicle.getVIN()));
+        
+        Vehicle secondVehicle = new Vehicle("1E2345678U9012567",
+                                            secondModel,
+                                            new Condition(5000, MileageUnit.MILES, Type.USED),
+                                            "Sedan",
+                                            null,
+                                            "gas guzzler",
+                                            new Trim("trim", "black", "blue", Transmission.MANUAL),
+                                            new BigDecimal("26000"),
+                                            new BigDecimal("30000.32"),
+                                            true);
+        
+        vehicleDao.addVehicle(secondVehicle);
+        assertEquals(secondVehicle, vehicleDao.getVehicle(secondVehicle.getVIN()));
+        
+        // Getting All Vehicles
+        List<Vehicle> vehicles = vehicleDao.getAllVehicles();
+        
+        assertEquals(2, vehicles.size());
+        assertTrue(vehicles.contains(firstVehicle));
+        assertTrue(vehicles.contains(secondVehicle));
+    }
+    
+    @Test
+    public void testRemoveVehicle() {
+        // Adding User
+        User user = new User("elizbeth@gmail.com",
+                             "Elizbeth",
+                             "Contrera",
+                             "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+                             Role.ADMIN);
+        
+        userDao.addUser(user);
+        assertEquals(user, userDao.getUser(user.getEmail()));
+        
+        // Adding Make
+        Make make = new Make("Hyundai", LocalDate.now(), user);
+        
+        vehicleDao.addMake(make);
+        assertEquals(make, vehicleDao.getMake(make.getId()));
+        
+        // Adding Model
+        Model model = new Model("Accent", 
+                                List.of(2015),
+                                LocalDate.now(), 
+                                user, 
+                                make);
+        
+        vehicleDao.addModel(model);
+        assertEquals(model, vehicleDao.getModel(model.getId()));
+        
+        // Adding Vehicle
+        Vehicle vehicle = new Vehicle("123456789012AS567",
+                                      model,
+                                      new Condition(1000, MileageUnit.KILOMETERS, Type.NEW),
+                                      "Subcompact",
+                                      null,
+                                      "clean and reliable",
+                                      new Trim("trim", "black", "red", Transmission.AUTOMATIC),
+                                      new BigDecimal("24500"),
+                                      new BigDecimal("27000.60"),
+                                      false);
+        
+        vehicleDao.addVehicle(vehicle);
+        assertEquals(vehicle, vehicleDao.getVehicle(vehicle.getVIN()));
+        
+        // Remove Vehicle
+        vehicleDao.removeVehicle(vehicle.getVIN());
+        assertNull(vehicleDao.getVehicle(vehicle.getVIN()));
+    }
+    
+    @Test
+    public void testEditVehicle() {
+        // Adding User
+        User user = new User("elizbeth@gmail.com",
+                             "Elizbeth",
+                             "Contrera",
+                             "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd",
+                             Role.ADMIN);
+        
+        userDao.addUser(user);
+        assertEquals(user, userDao.getUser(user.getEmail()));
+        
+        // Adding Make
+        Make make = new Make("Hyundai", LocalDate.now(), user);
+        
+        vehicleDao.addMake(make);
+        assertEquals(make, vehicleDao.getMake(make.getId()));
+        
+        // Adding Model
+        Model model = new Model("Accent", 
+                                List.of(2015),
+                                LocalDate.now(), 
+                                user, 
+                                make);
+        
+        vehicleDao.addModel(model);
+        assertEquals(model, vehicleDao.getModel(model.getId()));
+        
+        // Adding Vehicle
+        Vehicle vehicle = new Vehicle("123456789012AS567",
+                                      model,
+                                      new Condition(1000, MileageUnit.KILOMETERS, Type.NEW),
+                                      "Subcompact",
+                                      null,
+                                      "clean and reliable",
+                                      new Trim("trim", "black", "red", Transmission.AUTOMATIC),
+                                      new BigDecimal("24500"),
+                                      new BigDecimal("27000.60"),
+                                      false);
+        
+        vehicleDao.addVehicle(vehicle);
+        assertEquals(vehicle, vehicleDao.getVehicle(vehicle.getVIN()));
+        
+        // Edit Vehicle
+        vehicleDao.editVehicle(new Vehicle(
+                
+        ));
     }
     
     @Test
