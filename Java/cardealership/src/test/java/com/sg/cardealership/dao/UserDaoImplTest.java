@@ -19,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  *
- * @author agrah
+ * @author Austin Graham 09/27/2021
  */
 @SpringBootTest
 public class UserDaoImplTest {
@@ -38,6 +38,8 @@ public class UserDaoImplTest {
     public static void tearDownClass() {
     }
     
+    //before each test, get a list of all users in the database if any
+    //loop through the list and delete each user fromthe database until empty.
     @BeforeEach
     public void setUp() {
         List<User> users = userDao.getAllUsers();
@@ -55,6 +57,7 @@ public class UserDaoImplTest {
      */
     @Test
     public void testGetAllUsers() {
+        //create a user object and add it to the test database
         User user = new User();
         user.setEmail("testEmail@email.com");
         user.setFirstName("FirstName");
@@ -63,6 +66,7 @@ public class UserDaoImplTest {
         user.setRole(Role.ADMIN);
         user = userDao.addUser(user);
         
+        //create a second user object and add it to the test database
         User user2 = new User();
         user2.setEmail("otherTestEmail@email.com");
         user2.setFirstName("seconFirstName");
@@ -71,10 +75,14 @@ public class UserDaoImplTest {
         user2.setRole(Role.SALES);
         user2 = userDao.addUser(user2);
         
+        //get a list of all users from the test database for assertion testing
         List<User> users = userDao.getAllUsers();
         
+        //assert there are only 2 objects in the list
         assertEquals(2, users.size());
+        //assert the first user oject is present
         assertTrue(users.contains(user));
+        //assert the second user is present
         assertTrue(users.contains(user2));
     }
 
@@ -83,6 +91,7 @@ public class UserDaoImplTest {
      */
     @Test
     public void testAddAndGetUser() {
+        //create a user object and add it to the test database
         User user = new User();
         user.setEmail("testEmail@email.com");
         user.setFirstName("FirstName");
@@ -91,8 +100,10 @@ public class UserDaoImplTest {
         user.setRole(Role.ADMIN);
         user = userDao.addUser(user);
         
+        //get the user info back from the database
         User fromDao = userDao.getUser(user.getEmail());
         
+        //assert that the user added and gotten from the database match
         assertEquals(user, fromDao);
     }
 
@@ -101,6 +112,7 @@ public class UserDaoImplTest {
      */
     @Test
     public void testRemoveUser() {
+        //create a user object and add it to the test database
         User user = new User();
         user.setEmail("testEmail@email.com");
         user.setFirstName("FirstName");
@@ -109,14 +121,19 @@ public class UserDaoImplTest {
         user.setRole(Role.ADMIN);
         user = userDao.addUser(user);
         
+        //get the user info back from the database
         User fromDao = userDao.getUser(user.getEmail());
         
+        //assert that the user added and gotten from the database match
         assertEquals(user, fromDao);
         
+        //remove the user via the users email
         userDao.removeUser(user.getEmail());
         
+        //get the user info back from the database
         fromDao = userDao.getUser(user.getEmail());
         
+        //assert that null was returned to verify the delete worked
         assertNull(fromDao);
     }
 
@@ -125,6 +142,7 @@ public class UserDaoImplTest {
      */
     @Test
     public void testEditUser() {
+        //create a user object and add it to the test database
         User user = new User();
         user.setEmail("testEmail@email.com");
         user.setFirstName("FirstName");
@@ -133,15 +151,22 @@ public class UserDaoImplTest {
         user.setRole(Role.ADMIN);
         user = userDao.addUser(user);
         
+        //get the user info back from the database
         User fromDao = userDao.getUser(user.getEmail());
+        //assert that the user added and gotten from the database match
         assertEquals(user, fromDao);
         
+        //set a field of user with a new value
         user.setFirstName("New FirstName");
+        //update the object in the database
         userDao.editUser(user);
         
+        //assert that user with new field does not equal the object from the database
         assertNotEquals(user, fromDao);
         
+        //get the updated user info from the database
         fromDao = userDao.getUser(user.getEmail());
+        //assert that the updated user object and database info match
         assertEquals(user, fromDao);
     }
     
