@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sg.cardealership.models;
 
 import java.util.Objects;
 
-/**
- *
- * @author kavin
- */
 public class Trim {
     private int id;
     private String name;
@@ -18,8 +9,7 @@ public class Trim {
     private String exteriorColor;
     private Transmission transmission;
 
-    public Trim(int id, String name, String interiorColor, String exteriorColor, Transmission transmission) {
-        this.id = id;
+    public Trim(String name, String interiorColor, String exteriorColor, Transmission transmission) {
         this.name = name;
         this.interiorColor = interiorColor;
         this.exteriorColor = exteriorColor;
@@ -30,20 +20,40 @@ public class Trim {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getInteriorColor() {
         return interiorColor;
     }
 
+    public void setInteriorColor(String interiorColor) {
+        this.interiorColor = interiorColor;
+    }
+
     public String getExteriorColor() {
         return exteriorColor;
     }
 
+    public void setExteriorColor(String exteriorColor) {
+        this.exteriorColor = exteriorColor;
+    }
+
     public Transmission getTransmission() {
         return transmission;
+    }
+
+    public void setTransmission(Transmission transmission) {
+        this.transmission = transmission;
     }
 
     @Override
