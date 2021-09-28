@@ -4,6 +4,7 @@ import com.sg.cardealership.models.Condition;
 import com.sg.cardealership.models.Make;
 import com.sg.cardealership.models.Model;
 import com.sg.cardealership.models.Role;
+import com.sg.cardealership.models.Transmission;
 import com.sg.cardealership.models.Trim;
 import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
@@ -214,5 +215,47 @@ public class VehicleDaoTest {
         // Remove Model
         vehicleDao.removeModel(model.getId());
         assertNull(vehicleDao.getModel(model.getId()));
+    }
+    
+    @Test
+    public void testAddAndGetTrim() {
+        Trim trim = new Trim("trim", "black", "red", Transmission.AUTOMATIC);
+        vehicleDao.addTrim(trim);
+        
+        assertEquals(trim, vehicleDao.getTrim(trim.getId()));
+    }
+    
+    @Test
+    public void testGetAllTrims() {
+        // Adding Trims
+        Trim firstTrim = new Trim("first trim", "black", "red", Transmission.AUTOMATIC);
+        vehicleDao.addTrim(firstTrim);
+        
+        assertEquals(firstTrim, vehicleDao.getTrim(firstTrim.getId()));
+        
+        Trim secondTrim = new Trim("second trim", "black", "blue", Transmission.MANUAL);
+        vehicleDao.addTrim(secondTrim);
+        
+        assertEquals(secondTrim, vehicleDao.getTrim(secondTrim.getId()));
+        
+        // Getting All Trims
+        List<Trim> trims = vehicleDao.getAllTrims();
+        
+        assertEquals(2, trims.size());
+        assertTrue(trims.contains(firstTrim));
+        assertTrue(trims.contains(secondTrim));
+    }
+    
+    @Test
+    public void testRemoveTrim() {
+        // Adding Trim
+        Trim trim = new Trim("trim", "black", "red", Transmission.AUTOMATIC);
+        vehicleDao.addTrim(trim);
+        
+        assertEquals(trim, vehicleDao.getTrim(trim.getId()));
+        
+        // Removing Trim
+        vehicleDao.removeTrim(trim.getId());
+        assertNull(vehicleDao.getTrim(trim.getId()));
     }
 }
