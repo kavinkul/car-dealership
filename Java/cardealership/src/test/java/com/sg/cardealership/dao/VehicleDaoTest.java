@@ -267,12 +267,13 @@ public class VehicleDaoTest {
                                       false);
         
         vehicleDao.addVehicle(vehicle);
-        assertEquals(vehicle, vehicleDao.getVehicle(vehicle.getVIN()));
+        Vehicle vehicleFromDao = vehicleDao.getVehicle(vehicle.getVIN());
+        assertEquals(vehicle, vehicleFromDao);
         
         // Edit Vehicle
-        vehicleDao.editVehicle(new Vehicle(
-                
-        ));
+        vehicle.setSalesPrice(new BigDecimal("23000"));
+        vehicleDao.editVehicle(vehicle);
+        assertNotEquals(vehicle, vehicleFromDao);
     }
     
     @Test
