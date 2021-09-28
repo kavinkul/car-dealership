@@ -8,7 +8,7 @@ public interface ContactDao {
     
     Contact getContact(int id);
 
-    Contact addContact(Contact user);
+    void addContact(Contact contact);
 
     void removeContact(int id);
 }

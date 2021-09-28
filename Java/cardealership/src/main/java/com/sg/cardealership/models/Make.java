@@ -18,8 +18,7 @@ public class Make {
     private LocalDate dateAdded;
     private User user;
 
-    public Make(int id, String name, LocalDate dateAdded, User user) {
-        this.id = id;
+    public Make(String name, LocalDate dateAdded, User user) {
         this.name = name;
         this.dateAdded = dateAdded;
         this.user = user;
@@ -29,16 +28,32 @@ public class Make {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDate getDateAdded() {
         return dateAdded;
     }
 
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
