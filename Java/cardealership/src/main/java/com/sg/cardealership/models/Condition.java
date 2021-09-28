@@ -1,24 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sg.cardealership.models;
 
 import java.util.Objects;
 
-/**
- *
- * @author kavin
- */
 public class Condition {
     private int id;
     private int mileage;
     private MileageUnit unit;
     private Type type;
 
-    public Condition(int id, int mileage, MileageUnit unit, Type type) {
-        this.id = id;
+    public Condition(int mileage, MileageUnit unit, Type type) {
         this.mileage = mileage;
         this.unit = unit;
         this.type = type;
@@ -28,20 +18,32 @@ public class Condition {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getMileage() {
         return mileage;
+    }
+
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
     }
 
     public MileageUnit getUnit() {
         return unit;
     }
 
+    public void setUnit(MileageUnit unit) {
+        this.unit = unit;
+    }
+
     public Type getType() {
         return type;
     }
 
-    public void setMileage(int mileage) {
-        this.mileage = mileage;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     @Override
@@ -85,6 +87,4 @@ public class Condition {
     public String toString() {
         return "Condition{" + "id=" + id + ", mileage=" + mileage + ", unit=" + unit + ", type=" + type + '}';
     }
-
-
 }
