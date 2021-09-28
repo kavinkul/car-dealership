@@ -105,8 +105,8 @@ public class SalesDaoImplTest {
         vehicleDao.addVehicleCondition(firstCondition);
         vehicleDao.addVehicleCondition(secondCondition);
 
-        Trim firstTrim = new Trim(1, "first trim", "red", "black", Transmission.AUTOMATIC);
-        Trim secondTrim = new Trim(2, "second trim", "black", "white", Transmission.MANUAL);
+        Trim firstTrim = new Trim("first trim", "red", "black", Transmission.AUTOMATIC);
+        Trim secondTrim = new Trim("second trim", "black", "white", Transmission.MANUAL);
 
         vehicleDao.addTrim(firstTrim);
         vehicleDao.addTrim(secondTrim);
@@ -166,7 +166,7 @@ public class SalesDaoImplTest {
 
         vehicleDao.addVehicleCondition(firstCondition);
 
-        Trim firstTrim = new Trim(1, "first trim", "red", "black", Transmission.AUTOMATIC);
+        Trim firstTrim = new Trim("first trim", "red", "black", Transmission.AUTOMATIC);
 
         vehicleDao.addTrim(firstTrim);
 
@@ -225,8 +225,8 @@ public class SalesDaoImplTest {
         vehicleDao.addVehicleCondition(firstCondition);
         vehicleDao.addVehicleCondition(secondCondition);
 
-        Trim firstTrim = new Trim(1, "first trim", "red", "black", Transmission.AUTOMATIC);
-        Trim secondTrim = new Trim(2, "second trim", "black", "white", Transmission.MANUAL);
+        Trim firstTrim = new Trim("first trim", "red", "black", Transmission.AUTOMATIC);
+        Trim secondTrim = new Trim("second trim", "black", "white", Transmission.MANUAL);
 
         vehicleDao.addTrim(firstTrim);
         vehicleDao.addTrim(secondTrim);
