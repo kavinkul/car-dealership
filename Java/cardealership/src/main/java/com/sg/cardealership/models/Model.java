@@ -21,8 +21,7 @@ public class Model {
     private User user;
     private Make make;
 
-    public Model(int id, String name, List<Integer> years, LocalDate dateAdded, User user, Make make) {
-        this.id = id;
+    public Model(String name, List<Integer> years, LocalDate dateAdded, User user, Make make) {
         this.name = name;
         this.years = years;
         this.dateAdded = dateAdded;
@@ -32,6 +31,10 @@ public class Model {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -104,5 +107,5 @@ public class Model {
         return "Model{" + "id=" + id + ", name=" + name + ", years=" + years + ", dateAdded=" + dateAdded + ", user=" + user + ", make=" + make + '}';
     }
 
-    
+
 }

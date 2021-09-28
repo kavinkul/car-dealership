@@ -20,4 +20,6 @@ public interface SalesDao {
     Sale getSale(User user);
 
     void addSale(User user, Vehicle vehicle);
+
+    void removeSale(Sale sale);
 }

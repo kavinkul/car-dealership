@@ -94,7 +94,3 @@ public class Trim {
 
 
 }
-
-enum Transmission {
-    AUTOMATIC, MANUAL
-}
