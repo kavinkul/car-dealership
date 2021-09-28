@@ -8,14 +8,14 @@ public class Model {
     private String name;
     private int year;
     private LocalDate dateAdded;
-    private User user;
+    private String userEmail;
     private Make make;
 
-    public Model(String name, int year, LocalDate dateAdded, User user, Make make) {
+    public Model(String name, int year, LocalDate dateAdded, String userEmail, Make make) {
         this.name = name;
         this.year = year;
         this.dateAdded = dateAdded;
-        this.user = user;
+        this.userEmail = userEmail;
         this.make = make;
     }
 
@@ -39,8 +39,8 @@ public class Model {
         return dateAdded;
     }
 
-    public User getUser() {
-        return user;
+    public String getUser() {
+        return userEmail;
     }
 
     public Make getMake() {
@@ -54,7 +54,7 @@ public class Model {
         hash = 13 * hash + Objects.hashCode(this.name);
         hash = 13 * hash + Objects.hashCode(this.year);
         hash = 13 * hash + Objects.hashCode(this.dateAdded);
-        hash = 13 * hash + Objects.hashCode(this.user);
+        hash = 13 * hash + Objects.hashCode(this.userEmail);
         hash = 13 * hash + Objects.hashCode(this.make);
         return hash;
     }
@@ -83,7 +83,7 @@ public class Model {
         if (!Objects.equals(this.dateAdded, other.dateAdded)) {
             return false;
         }
-        if (!Objects.equals(this.user, other.user)) {
+        if (!Objects.equals(this.userEmail, other.userEmail)) {
             return false;
         }
         if (!Objects.equals(this.make, other.make)) {
@@ -94,6 +94,6 @@ public class Model {
 
     @Override
     public String toString() {
-        return "Model{" + "id=" + id + ", name=" + name + ", year=" + year + ", dateAdded=" + dateAdded + ", user=" + user + ", make=" + make + '}';
+        return "Model{" + "id=" + id + ", name=" + name + ", year=" + year + ", dateAdded=" + dateAdded + ", userEmail=" + userEmail + ", make=" + make + '}';
     }
 }

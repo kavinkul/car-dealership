@@ -25,6 +25,16 @@ public class Vehicle {
     private BigDecimal MSRP;
     private boolean featured;
 
+    public Vehicle(String VIN, String bodyStyle, Blob picture, String description, BigDecimal salesPrice, BigDecimal MSRP, boolean featured) {
+        this.VIN = VIN;
+        this.bodyStyle = bodyStyle;
+        this.picture = picture;
+        this.description = description;
+        this.salesPrice = salesPrice;
+        this.MSRP = MSRP;
+        this.featured = featured;
+    }
+
     public Vehicle(String VIN, Model model, Condition vehicleCondition, String bodyStyle, Blob picture, String description, Trim trim, BigDecimal salesPrice, BigDecimal MSRP, boolean featured) {
         this.VIN = VIN;
         this.model = model;
@@ -42,44 +52,80 @@ public class Vehicle {
         return VIN;
     }
 
+    public void setVIN(String VIN) {
+        this.VIN = VIN;
+    }
+
     public Model getModel() {
         return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 
     public Condition getVehicleCondition() {
         return vehicleCondition;
     }
 
+    public void setVehicleCondition(Condition vehicleCondition) {
+        this.vehicleCondition = vehicleCondition;
+    }
+
     public String getBodyStyle() {
         return bodyStyle;
+    }
+
+    public void setBodyStyle(String bodyStyle) {
+        this.bodyStyle = bodyStyle;
     }
 
     public Blob getPicture() {
         return picture;
     }
 
+    public void setPicture(Blob picture) {
+        this.picture = picture;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Trim getTrim() {
         return trim;
     }
 
+    public void setTrim(Trim trim) {
+        this.trim = trim;
+    }
+
     public BigDecimal getSalesPrice() {
         return salesPrice;
+    }
+
+    public void setSalesPrice(BigDecimal salesPrice) {
+        this.salesPrice = salesPrice;
     }
 
     public BigDecimal getMSRP() {
         return MSRP;
     }
 
+    public void setMSRP(BigDecimal MSRP) {
+        this.MSRP = MSRP;
+    }
+
     public boolean isFeatured() {
         return featured;
     }
 
-    public void setSalesPrice(BigDecimal salesPrice) {
-        this.salesPrice = salesPrice;
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
     }
 
     @Override
