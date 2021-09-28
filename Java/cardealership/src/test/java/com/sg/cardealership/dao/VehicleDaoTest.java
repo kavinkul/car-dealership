@@ -1,7 +1,10 @@
 package com.sg.cardealership.dao;
 
+import com.sg.cardealership.models.Condition;
 import com.sg.cardealership.models.Make;
+import com.sg.cardealership.models.Model;
 import com.sg.cardealership.models.Role;
+import com.sg.cardealership.models.Trim;
 import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
 import java.time.LocalDate;
@@ -25,13 +28,33 @@ public class VehicleDaoTest {
     
     @BeforeEach
     public void setUp() {
-        // Remove all make records
-        for(Make make : vehicleDao.getAllMakes()) {
+        // Remove all vehicles
+        for (Vehicle vehicle : vehicleDao.getAllVehicles()) {
+            vehicleDao.removeVehicle(vehicle.getVIN());
+        }
+        
+        // Remove all vehicle conditions
+        for (Condition condition : vehicleDao.getAllVehicleConditions()) {
+            vehicleDao.removeVehicleCondition(condition.getId());
+        }
+        
+        // Remove all trims
+        for (Trim trim : vehicleDao.getAllTrims()) {
+            vehicleDao.removeTrim(trim.getId());
+        }
+        
+        // Remove all models
+        for (Model model : vehicleDao.getAllModels()) {
+            vehicleDao.removeModel(model.getId());
+        }
+        
+        // Remove all makes
+        for (Make make : vehicleDao.getAllMakes()) {
             vehicleDao.removeMake(make.getId());
         }
         
-        // Remove all user records
-        for(User user : userDao.getAllUsers()) {
+        // Remove all users
+        for (User user : userDao.getAllUsers()) {
             userDao.removeUser(user.getEmail());
         }
     }
