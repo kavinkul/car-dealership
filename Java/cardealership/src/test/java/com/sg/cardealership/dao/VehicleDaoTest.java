@@ -2,14 +2,15 @@ package com.sg.cardealership.dao;
 
 import com.sg.cardealership.models.Condition;
 import com.sg.cardealership.models.Make;
+import com.sg.cardealership.models.MileageUnit;
 import com.sg.cardealership.models.Model;
 import com.sg.cardealership.models.Role;
 import com.sg.cardealership.models.Transmission;
 import com.sg.cardealership.models.Trim;
+import com.sg.cardealership.models.Type;
 import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -257,5 +258,47 @@ public class VehicleDaoTest {
         // Removing Trim
         vehicleDao.removeTrim(trim.getId());
         assertNull(vehicleDao.getTrim(trim.getId()));
+    }
+    
+    @Test
+    public void testAddAndGetVehicleCondition() {
+        Condition condition = new Condition(1000, MileageUnit.KILOMETERS, Type.NEW);
+        vehicleDao.addVehicleCondition(condition);
+        
+        assertEquals(condition, vehicleDao.getVehicleCondition(condition.getId()));        
+    }
+    
+    @Test
+    public void testGetAllVehicleConditions() {
+        // Adding Vehicle Conditions
+        Condition firstCondition = new Condition(1000, MileageUnit.KILOMETERS, Type.NEW);
+        vehicleDao.addVehicleCondition(firstCondition);
+        
+        assertEquals(firstCondition, vehicleDao.getVehicleCondition(firstCondition.getId()));
+        
+        Condition secondCondition = new Condition(50000, MileageUnit.MILES, Type.USED);
+        vehicleDao.addVehicleCondition(secondCondition);
+        
+        assertEquals(secondCondition, vehicleDao.getVehicleCondition(secondCondition.getId()));
+        
+        // Getting All Conditions
+        List<Condition> conditions = vehicleDao.getAllVehicleConditions();
+        
+        assertEquals(2, conditions.size());
+        assertTrue(conditions.contains(firstCondition));
+        assertTrue(conditions.contains(secondCondition));
+    }
+    
+    @Test
+    public void testRemoveVehicleCondition() {
+        // Adding Condition
+        Condition condition = new Condition(1000, MileageUnit.KILOMETERS, Type.NEW);
+        vehicleDao.addVehicleCondition(condition);
+        
+        assertEquals(condition, vehicleDao.getVehicleCondition(condition.getId())); 
+        
+        // Removing Condition
+        vehicleDao.removeVehicleCondition(condition.getId());
+        assertNull(vehicleDao.getVehicleCondition(condition.getId()));
     }
 }
