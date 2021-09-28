@@ -1,29 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sg.cardealership.models;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
-/**
- *
- * @author kavin
- */
 public class Model {
     private int id;
     private String name;
-    private List<Integer> years;
+    private int year;
     private LocalDate dateAdded;
     private User user;
     private Make make;
 
-    public Model(String name, List<Integer> years, LocalDate dateAdded, User user, Make make) {
+    public Model(String name, int year, LocalDate dateAdded, User user, Make make) {
         this.name = name;
-        this.years = years;
+        this.year = year;
         this.dateAdded = dateAdded;
         this.user = user;
         this.make = make;
@@ -41,8 +31,8 @@ public class Model {
         return name;
     }
 
-    public List<Integer> getYears() {
-        return years;
+    public int getYear() {
+        return year;
     }
 
     public LocalDate getDateAdded() {
@@ -62,7 +52,7 @@ public class Model {
         int hash = 7;
         hash = 13 * hash + this.id;
         hash = 13 * hash + Objects.hashCode(this.name);
-        hash = 13 * hash + Objects.hashCode(this.years);
+        hash = 13 * hash + Objects.hashCode(this.year);
         hash = 13 * hash + Objects.hashCode(this.dateAdded);
         hash = 13 * hash + Objects.hashCode(this.user);
         hash = 13 * hash + Objects.hashCode(this.make);
@@ -87,7 +77,7 @@ public class Model {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.years, other.years)) {
+        if (!Objects.equals(this.year, other.year)) {
             return false;
         }
         if (!Objects.equals(this.dateAdded, other.dateAdded)) {
@@ -104,8 +94,6 @@ public class Model {
 
     @Override
     public String toString() {
-        return "Model{" + "id=" + id + ", name=" + name + ", years=" + years + ", dateAdded=" + dateAdded + ", user=" + user + ", make=" + make + '}';
+        return "Model{" + "id=" + id + ", name=" + name + ", year=" + year + ", dateAdded=" + dateAdded + ", user=" + user + ", make=" + make + '}';
     }
-
-
 }

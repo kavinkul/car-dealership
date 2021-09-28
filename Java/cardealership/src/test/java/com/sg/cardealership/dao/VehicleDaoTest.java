@@ -80,7 +80,7 @@ public class VehicleDaoTest {
         
         // Adding Model
         Model model = new Model("Accent", 
-                                List.of(2015),
+                                2015,
                                 LocalDate.now(), 
                                 user, 
                                 make);
@@ -124,7 +124,7 @@ public class VehicleDaoTest {
         
         // Adding Models
         Model firstModel = new Model("Accent", 
-                                     List.of(2015),
+                                     2015,
                                      LocalDate.now(), 
                                      user, 
                                      make);
@@ -133,7 +133,7 @@ public class VehicleDaoTest {
         assertEquals(firstModel, vehicleDao.getModel(firstModel.getId()));
         
         Model secondModel = new Model("Azera", 
-                                      List.of(2006, 2007, 2008),
+                                      2006,
                                       LocalDate.now(), 
                                       user, 
                                       make);
@@ -198,7 +198,7 @@ public class VehicleDaoTest {
         
         // Adding Model
         Model model = new Model("Accent", 
-                                List.of(2015),
+                                2015,
                                 LocalDate.now(), 
                                 user, 
                                 make);
@@ -246,7 +246,7 @@ public class VehicleDaoTest {
         
         // Adding Model
         Model model = new Model("Accent", 
-                                List.of(2015),
+                                2015,
                                 LocalDate.now(), 
                                 user, 
                                 make);
@@ -354,7 +354,7 @@ public class VehicleDaoTest {
         
         // Adding Model
         Model model = new Model("Accent", 
-                                List.of(2015),
+                                2015,
                                 LocalDate.now(), 
                                 user, 
                                 make);
@@ -382,14 +382,14 @@ public class VehicleDaoTest {
         
         // Adding Models
         Model firstModel = new Model("Accent", 
-                                     List.of(2015),
+                                     2015,
                                      LocalDate.now(), 
                                      user, 
                                      make);
         vehicleDao.addModel(firstModel);
         
         Model secondModel = new Model("Azera", 
-                                      List.of(2006, 2007, 2008),
+                                      2006,
                                       LocalDate.now(), 
                                       user, 
                                       make);
@@ -422,7 +422,7 @@ public class VehicleDaoTest {
         
         // Adding Model
         Model model = new Model("Accent", 
-                                List.of(2015),
+                                2015,
                                 LocalDate.now(), 
                                 user, 
                                 make);
