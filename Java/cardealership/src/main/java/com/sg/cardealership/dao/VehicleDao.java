@@ -1,18 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sg.cardealership.dao;
 
+import com.sg.cardealership.models.Make;
+import com.sg.cardealership.models.Model;
 import com.sg.cardealership.models.Vehicle;
 import java.util.List;
 
-/**
- *
- * @author kavin
- */
 public interface VehicleDao {
+    // Vehicle
     List<Vehicle> getAllVehicles();
 
     Vehicle getVehicle(String vin);
@@ -22,4 +16,22 @@ public interface VehicleDao {
     void removeVehicle(String vin);
 
     void editVehicle(Vehicle vehicle);
+    
+    // Make
+    List<Make> getAllMakes();
+
+    Make getMake(int id);
+
+    void addMake(Make make);
+
+    void removeMake(int id);
+    
+    //  Model
+    List<Model> getAllModels();
+
+    Model getModel(int id);
+
+    void addModel(Model model);
+
+    void removeModel(int id);
 }
