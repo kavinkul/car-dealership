@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserDaoImpl implements UserDao{
-    
+
     @Autowired
     JdbcTemplate jdbc;
 
@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao{
                 user.getLastName(),
                 user.getPasswordHash(),
                 user.getRole().getValue());
-        
+
         //String newEmail = jdbc.queryForObject("SELECT LAST_INSERT_ID()", String.class);
         //user.setEmail(newEmail);
         return user;
@@ -73,24 +73,46 @@ public class UserDaoImpl implements UserDao{
                 user.getLastName(),
                 user.getEmail());
     }
-    
+
     public static final class UserMapper implements RowMapper<User> {
+
+        private String emailField;
+        private String firstNameField;
+        private String lastNameField;
+        private String passwordHashField;
+        private String roleField;
+
+        public UserMapper() {
+            this.emailField = "email";
+            this.firstNameField = "firstName";
+            this.lastNameField = "lastName";
+            this.passwordHashField = "passwordHash";
+            this.roleField = "role";
+        }
+
+        public UserMapper(String emailField, String firstNameField, String lastNameField, String passwordHashField, String roleField) {
+            this.emailField = emailField;
+            this.firstNameField = firstNameField;
+            this.lastNameField = lastNameField;
+            this.passwordHashField = passwordHashField;
+            this.roleField = roleField;
+        }
 
         @Override
         public User mapRow(ResultSet rs, int index) throws SQLException {
             User user = new User();
-            user.setEmail(rs.getString("email"));
-            user.setFirstName(rs.getString("firstName"));
-            user.setLastName(rs.getString("lastName"));
-            user.setPasswordHash(rs.getString("passwordHash"));
-            if(rs.getString("role").equalsIgnoreCase("admin")){
+            user.setEmail(rs.getString(this.emailField));
+            user.setFirstName(rs.getString(this.firstNameField));
+            user.setLastName(rs.getString(this.lastNameField));
+            user.setPasswordHash(rs.getString(this.passwordHashField));
+            if(rs.getString(this.roleField).equalsIgnoreCase("admin")){
                 user.setRole(Role.ADMIN);
             }
-            else if(rs.getString("role").equalsIgnoreCase("sales")){
+            else if(rs.getString(this.roleField).equalsIgnoreCase("sales")){
                 user.setRole(Role.SALES);
             }
             return user;
         }
     }
-    
+
 }
