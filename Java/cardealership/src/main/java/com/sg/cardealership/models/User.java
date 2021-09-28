@@ -17,6 +17,9 @@ public class User {
     private String lastName;
     private String passwordHash;
     private Role role;
+    
+    public User(){
+    }
 
     public User(String email, String firstName, String lastName, String passwordHash, Role role) {
         this.email = email;

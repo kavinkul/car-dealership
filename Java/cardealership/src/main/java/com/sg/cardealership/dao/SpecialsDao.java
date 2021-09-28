@@ -17,9 +17,9 @@ public interface SpecialsDao {
 
     Special getSpecial(int id);
 
-    void addSpecial(Special special);
+    Special addSpecial(Special special);
 
     void removeSpecial(int id);
 
-    void editSpecial(Special special);
+    //void editSpecial(Special special);
 }
