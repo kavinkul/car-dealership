@@ -57,17 +57,13 @@ public class SpecialsDaoImplTest {
      */
     @Test
     public void testGetAllSpecials() {
-        Special special = new Special("Fall-Back RollBack", "Prices are rolled back "
-                + "for fall. Come in today to recieve xx% of purchase.");
+        Special special = new Special("Test Title", "Test Description 1");
         special = specialDao.addSpecial(special);
         
-        Special special2 = new Special("0 Down, 0 regrets", "0% down with 0% interest "
-                + "for 12 months. Visit today to take advantage of this temporary "
-                + " financing offer.");
+        Special special2 = new Special("Second Test Title", "A second test description.");
         special2 = specialDao.addSpecial(special2);
         
-        List<Special> specials = new ArrayList<>();
-        specials.add(special2);
+        List<Special> specials = specialDao.getAllSpecials();
         
         assertEquals(2, specials.size());
         assertTrue(specials.contains(special));

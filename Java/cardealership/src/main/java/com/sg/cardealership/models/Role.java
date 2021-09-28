@@ -10,5 +10,16 @@ package com.sg.cardealership.models;
  * @author kavin
  */
 public enum Role {
-    ADMIN, SALES
+    ADMIN("Admin"), SALES("Sales");
+    
+    private String value;
+    
+    Role(String value){
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+    
 }

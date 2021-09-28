@@ -9,21 +9,31 @@ import java.util.Objects;
 
 /**
  *
- * @author kavin
+ * @author kavin, Austin Graham
  */
 public class Special {
     private int id;
     private String title;
     private String description;
-
+    
     public Special(String title, String description) {
         //this.id = id;
         this.title = title;
         this.description = description;
     }
 
+    public Special(int id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
