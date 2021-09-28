@@ -88,11 +88,3 @@ public class Condition {
 
 
 }
-
-enum MileageUnit {
-    KILOMETERS, MILES
-}
-
-enum Type {
-    NEW, USED
-}
