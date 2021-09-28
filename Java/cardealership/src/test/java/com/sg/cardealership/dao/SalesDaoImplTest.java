@@ -59,6 +59,12 @@ public class SalesDaoImplTest {
         List<Make> allMakes = vehicleDao.getAllMakes();
         for (Make make : allMakes)
             vehicleDao.removeMake(make.getId());
+        List<Trim> allTrims = vehicleDao.getAllTrims();
+        for (Trim trim : allTrims)
+            vehicleDao.removeTrim(trim.getId());
+        List<Condition> allVehicleConditions = vehicleDao.getAllVehicleConditions();
+        for (Condition condition : allVehicleConditions)
+            vehicleDao.removeVehicleCondition(condition.getId());
         List<User> allUsers = userDao.getAllUsers();
         for (User user : allUsers)
             userDao.removeUser(user.getEmail());
@@ -96,8 +102,14 @@ public class SalesDaoImplTest {
         Condition firstCondition = new Condition(1, 10000, MileageUnit.KILOMETERS, Type.USED);
         Condition secondCondition = new Condition(2, 100, MileageUnit.MILES, Type.NEW);
 
+        vehicleDao.addVehicleCondition(firstCondition);
+        vehicleDao.addVehicleCondition(secondCondition);
+
         Trim firstTrim = new Trim(1, "first trim", "red", "black", Transmission.AUTOMATIC);
         Trim secondTrim = new Trim(2, "second trim", "black", "white", Transmission.MANUAL);
+
+        vehicleDao.addTrim(firstTrim);
+        vehicleDao.addTrim(secondTrim);
 
         User firstUser = new User("email@email.com", "John", "Doe", "3384d8d68c02152d4c2532b83886b4cd56e20aab018fd912324ff3c6b1394851", Role.SALES);
         User secondUser = new User("real@fake.email.com", "Fake", "Person", "3384d7658e455ad4c2532b83886b74cd56e20aab018fd912324ff3c6b1394851", Role.SALES);
@@ -152,7 +164,11 @@ public class SalesDaoImplTest {
 
         Condition firstCondition = new Condition(1, 10000, MileageUnit.KILOMETERS, Type.USED);
 
+        vehicleDao.addVehicleCondition(firstCondition);
+
         Trim firstTrim = new Trim(1, "first trim", "red", "black", Transmission.AUTOMATIC);
+
+        vehicleDao.addTrim(firstTrim);
 
         User firstUser = new User("email@email.com", "John", "Doe", "3384d8d68c02152d4c2532b83886b4cd56e20aab018fd912324ff3c6b1394851", Role.SALES);
 
@@ -206,8 +222,14 @@ public class SalesDaoImplTest {
         Condition firstCondition = new Condition(1, 10000, MileageUnit.KILOMETERS, Type.USED);
         Condition secondCondition = new Condition(2, 100, MileageUnit.MILES, Type.NEW);
 
+        vehicleDao.addVehicleCondition(firstCondition);
+        vehicleDao.addVehicleCondition(secondCondition);
+
         Trim firstTrim = new Trim(1, "first trim", "red", "black", Transmission.AUTOMATIC);
         Trim secondTrim = new Trim(2, "second trim", "black", "white", Transmission.MANUAL);
+
+        vehicleDao.addTrim(firstTrim);
+        vehicleDao.addTrim(secondTrim);
 
         User firstUser = new User("email@email.com", "John", "Doe", "3384d8d68c02152d4c2532b83886b4cd56e20aab018fd912324ff3c6b1394851", Role.SALES);
         User secondUser = new User("real@fake.email.com", "Fake", "Person", "3384d7658e455ad4c2532b83886b74cd56e20aab018fd912324ff3c6b1394851", Role.SALES);
