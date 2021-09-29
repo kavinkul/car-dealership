@@ -205,6 +205,9 @@ public class SalesDaoImplTest {
         Vehicle firstVehicle = new Vehicle("1234567890abcdefg", firstModel, firstCondition, "Sedan", null, "Nothing", firstTrim, new BigDecimal("25430.65"), new BigDecimal("30000.00"), true);
         Vehicle secondVehicle = new Vehicle("7777567890abcdefg", secondModel, secondCondition, "Not Sedan", null, "Not Nothing", secondTrim, new BigDecimal("10000.65"), new BigDecimal("20000.50"), false);
 
+        vehicleDao.addVehicle(firstVehicle);
+        vehicleDao.addVehicle(secondVehicle);
+
         salesDao.addSale(firstUser, firstVehicle);
 
         Sale firstAddedSale = salesDao.getSale(firstUser);
@@ -213,7 +216,7 @@ public class SalesDaoImplTest {
 
         salesDao.addSale(secondUser, secondVehicle);
 
-        Sale secondAddedSale = salesDao.getSale(firstUser);
+        Sale secondAddedSale = salesDao.getSale(secondUser);
 
         assertNotNull(secondAddedSale);
 
@@ -223,6 +226,8 @@ public class SalesDaoImplTest {
 
         assertTrue(allSales.contains(firstAddedSale));
         assertTrue(allSales.contains(secondAddedSale));
+
+        salesDao.removeSale(firstAddedSale);
 
         allSales = salesDao.getAllSales();
 
