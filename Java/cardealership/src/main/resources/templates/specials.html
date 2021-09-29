@@ -48,12 +48,17 @@
                         <div class="col-1">
                             <img style="width: 50px; height: 50px;" src="img/carPlaceholder.png"/>
                         </div>
-                        <h5 class="col col-6 card-title" th:text="${special.title}">Special Title</h5>
-                        <div id="descriptionDiv" class="col-6"
-                             th:text="${special.description}">
-                            Special Description
+                        <div class="col-11">
+                            <div class="row">
+                                <h5 class="col card-title" th:text="${special.title}">Special Title</h5>
+                            </div>
+                            <div class="row">
+                                <div id="descriptionDiv" class="col-12"
+                                    th:text="${special.description}">
+                                    Special Description
+                                </div>  
+                            </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
