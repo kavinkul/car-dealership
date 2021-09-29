@@ -17,6 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class VehicleDaoImpl implements VehicleDao {
@@ -75,8 +76,49 @@ public class VehicleDaoImpl implements VehicleDao {
     }
 
     @Override
+    @Transactional
     public void addVehicle(Vehicle vehicle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_VEHICLE 
+                = "INSERT INTO Vehicle VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final String INSERT_VEHICLE_TRIM 
+                = "INSERT INTO Vehicle (`Name`, InteriorColorID, ExteriorColorID, Transmission) VALUES (?, ?, ?, ?)";
+        final String INSERT_VEHICLE_CONDITION 
+                = "INSERT INTO Vehicle (Mileage, MileageUnit, `Type`) VALUES (?, ?, ?)";
+        
+        // Insert VehicleCondition
+        Condition condition = vehicle.getVehicleCondition();
+        jdbc.update(INSERT_VEHICLE_CONDITION,
+                    condition.getMileage(),
+                    condition.getUnit(),
+                    condition.getType());
+        
+        int conditionId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        condition.setId(conditionId);
+        
+        // Insert Trim
+        // TODO: Query Color
+        Trim trim = vehicle.getTrim();
+        jdbc.update(INSERT_VEHICLE_TRIM,
+                    trim.getName(),
+                    1,
+                    1,
+                    trim.getTransmission().toString());
+        
+        int trimId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        trim.setId(trimId);
+        
+        // Insert Vehicle
+        jdbc.update(INSERT_VEHICLE,
+                    vehicle.getVIN(),
+                    vehicle.getModel().getId(),
+                    conditionId,
+                    vehicle.getBodyStyle(),
+                    vehicle.getPicture(),
+                    vehicle.getDescription(),
+                    trimId,
+                    vehicle.getSalesPrice(),
+                    vehicle.getMSRP(),
+                    vehicle.isFeatured());
     }
 
     @Override
