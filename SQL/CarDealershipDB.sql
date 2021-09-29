@@ -51,19 +51,12 @@ CREATE TABLE VehicleCondition  (
     `Type` ENUM('New', 'Used')
 );
 
-CREATE TABLE Color (
-	ColorID INT PRIMARY KEY AUTO_INCREMENT,
-    `Name` VARCHAR(23) NOT NULL
-);
-
 CREATE TABLE `Trim` (
 	TrimID INT PRIMARY KEY AUTO_INCREMENT,
     `Name` VARCHAR(20) NOT NULL,
-    InteriorColorID INT NOT NULL,
-    ExteriorColorID INT NOT NULL,
-    Transmission ENUM('Automatic', 'Manual'),
-    CONSTRAINT FK_InteriorColorID FOREIGN KEY (InteriorColorID) REFERENCES Color(ColorID),
-	CONSTRAINT FK_ExteriorColorID FOREIGN KEY (ExteriorColorID) REFERENCES Color(ColorID)
+    InteriorColor VARCHAR(23) NOT NULL,
+    ExteriorColor VARCHAR(23) NOT NULL,
+    Transmission ENUM('Automatic', 'Manual')
 );
 
 CREATE TABLE Specials (
@@ -99,12 +92,8 @@ CREATE TABLE SALES (
 INSERT INTO `User` VALUES("JG@gmail.com", "Jack", "Gram", "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd", "Admin");
 INSERT INTO `User` VALUES("emilywiill@hotmail.com", "Emily", "Willes", "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd", "Sales");
 
-INSERT INTO Color(`Name`) VALUES("Light Golden Rod Yellow");
-INSERT INTO Color(`Name`) VALUES("Red");
-INSERT INTO Color(`Name`) VALUES("Blue");
-
-INSERT INTO `Trim`(`Name`, InteriorColorID, ExteriorColorID, Transmission) VALUES ("Trim 1", 1, 2, "Automatic");
-INSERT INTO `Trim`(`Name`, InteriorColorID, ExteriorColorID, Transmission) VALUES ("Trim 2", 3, 1, "Manual");
+INSERT INTO `Trim`(`Name`, InteriorColor, ExteriorColor, Transmission) VALUES ("Trim 1", "light golden rod yellow", "red", "Automatic");
+INSERT INTO `Trim`(`Name`, InteriorColor, ExteriorColor, Transmission) VALUES ("Trim 2", "blue", "light golden rod yellow", "Manual");
 
 INSERT INTO Make(`Name`, DateAdded, UserEmail) VALUES("Toyota", '2021-09-27', "JG@gmail.com");
 INSERT INTO Make(`Name`, DateAdded, UserEmail) VALUES("Hyundai", '2020-05-18', "JG@gmail.com");
