@@ -27,14 +27,15 @@
       
       <!-- ------------------------Menu Bar--------------------------------- -->  
         <div class="col m-2 card card-img-left">
-            <img style="width: 5%;" src="img/carPlaceholder.png"/>
-            <div class="card-body"><a href="">Home</a> | 
+            <img class="col-1" src="img/carPlaceholder.png"/>
+            <div class="card-body col-11"><a href="">Home</a> | 
                                    <a href="">New Inventory</a> | 
                                    <a href="">Used Inventory</a> | 
                                    <a href="">Specials</a> | 
                                    <a href="">Contacts</a> | 
                                    <a href="">Sales</a> | 
-                                   <a href="">Admin</a></div>
+                                   <a href="">Admin</a>
+            </div>
         </div>
       
       <!-- ------------------------Page Header------------------------------ -->
@@ -63,48 +64,6 @@
                 </div>
             </div>
         </div>
-      <!--
-        <div class="row m-4 border border-dark">
-            <div class="col-3 text-center m-3">
-                <span class="h3">Add Student</span>
-            </div>
-            <div class="col-7 text-center m-3">
-                <form action="addStudent" method="POST">
-                    <div class="form-group row">
-                        <label for="firstName" class="col-3 col-form-label">
-                            First Name</label>
-                        <div class="col-9">
-                            <input type="text" name="firstName" 
-                                   id="firstName" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="lastName" class="col-3 col-form-label">
-                            Last Name</label>
-                        <div class="col-9">
-                            <input type="text" name="lastName" 
-                                   id="lastName" class="form-control"/>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add Student</button>
-                </form>
-            </div>
-        </div>
-      
-      
-        <div class="row m-4 border border-dark">
-            <div class="col text-center m-3">
-                <table class="table table-striped">
-                    <tbody>
-                        <tr th:each="special : ${specials}">
-                            <td th:text="${special.title}">Special Title</td>
-                            <td th:text="${special.description}">Special Description</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-      -->
     </div>
 
     <!-- End main body -->
