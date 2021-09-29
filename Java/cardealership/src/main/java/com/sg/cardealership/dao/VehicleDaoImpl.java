@@ -108,7 +108,23 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public void editVehicle(Vehicle vehicle) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String UPDATE_VEHICLE 
+                = "UPDATE Vehicle SET ModelId = ?, VehicleConditionID = ?, "
+                    + "BodyStyle = ?, Picture = ?, `Description` = ?, "
+                    + "TrimId = ?, SalesPrice = ?, MSRP = ?, Featured = ? "
+                    + "WHERE VIN = ?";
+        
+        jdbc.update(UPDATE_VEHICLE,
+                    vehicle.getModel().getId(),
+                    vehicle.getVehicleCondition().getId(),
+                    vehicle.getBodyStyle(),
+                    vehicle.getPicture(),
+                    vehicle.getDescription(),
+                    vehicle.getTrim().getId(),
+                    vehicle.getSalesPrice(),
+                    vehicle.getMSRP(),
+                    vehicle.isFeatured(),
+                    vehicle.getVIN());
     }
 
     @Override
