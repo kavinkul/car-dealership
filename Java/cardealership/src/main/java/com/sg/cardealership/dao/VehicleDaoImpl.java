@@ -199,12 +199,23 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public List<Trim> getAllTrims() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_TRIMS = "SELECT TrimID, `Name` TrimName, InteriorColor, ExteriorColor, Transmission FROM `Trim`";
+        return jdbc.query(SELECT_TRIMS,
+                          new TrimMapper());
     }
 
     @Override
     public Trim getTrim(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_TRIM_BY_ID 
+                = "SELECT TrimID, `Name` TrimName, InteriorColor, ExteriorColor, Transmission FROM `Trim` "
+                    + "WHERE TrimID = ?";
+        try {
+            return jdbc.queryForObject(SELECT_TRIM_BY_ID,
+                                       new TrimMapper(),
+                                       id);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -225,7 +236,8 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public void removeTrim(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_TRIM = "DELETE FROM `Trim` WHERE TrimID = ?";
+        jdbc.update(DELETE_TRIM, id);
     }
 
     @Override
