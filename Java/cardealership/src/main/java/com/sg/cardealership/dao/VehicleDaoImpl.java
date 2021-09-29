@@ -10,7 +10,6 @@ import com.sg.cardealership.models.Type;
 import com.sg.cardealership.models.Vehicle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -28,13 +27,11 @@ public class VehicleDaoImpl implements VehicleDao {
     public List<Vehicle> getAllVehicles() {
         final String SELECT_ALL_VEHICLES 
                 = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
-                    + "t.`Name` TrimName, ic.`Name` InteriorColorName, ec.`Name` ExteriorColorName, t.Transmission, "
+                    + "t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
                     + "m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
                     + "mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
-                    + "JOIN Color ic ON t.InteriorColorID = ic.ColorID "
-                    + "JOIN Color ec ON t.ExteriorColorID = ec.ColorID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
                     + "JOIN ModelYear my ON m.`Year` = my.`Year` "
                     + "JOIN Make mk ON m.MakeId = mk.MakeId "
@@ -51,18 +48,16 @@ public class VehicleDaoImpl implements VehicleDao {
     public Vehicle getVehicle(String vin) {
         final String SELECT_VEHICLE_BY_VIN 
                 = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
-                    + "t.`Name` TrimName, ic.`Name` InteriorColorName, ec.`Name` ExteriorColorName, t.Transmission, "
+                    + "t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
                     + "m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
                     + "mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
-                    + "JOIN Color ic ON t.InteriorColorID = ic.ColorID "
-                    + "JOIN Color ec ON t.ExteriorColorID = ec.ColorID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
                     + "JOIN ModelYear my ON m.`Year` = my.`Year` "
                     + "JOIN Make mk ON m.MakeId = mk.MakeId "
                     + "JOIN `User` mu ON m.UserEmail = mu.Email "
-                    + "JOIN `User` mku ON mk.UserEmail = mku.Email"
+                    + "JOIN `User` mku ON mk.UserEmail = mku.Email "
                     + "WHERE v.VIN = ?";
         try {
             return jdbc.queryForObject(SELECT_VEHICLE_BY_VIN,
@@ -167,12 +162,12 @@ public class VehicleDaoImpl implements VehicleDao {
     @Transactional
     public void addTrim(Trim trim) {
         final String INSERT_VEHICLE_TRIM 
-                = "INSERT INTO Vehicle (`Name`, InteriorColorID, ExteriorColorID, Transmission) VALUES (?, ?, ?, ?)";
+                = "INSERT INTO `Trim` (`Name`, InteriorColor, ExteriorColor, Transmission) VALUES (?, ?, ?, ?)";
         
         jdbc.update(INSERT_VEHICLE_TRIM,
                     trim.getName(),
-                    1,
-                    1,
+                    trim.getInteriorColor(),
+                    trim.getExteriorColor(),
                     trim.getTransmission().toString());
         
         int trimId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
@@ -248,7 +243,6 @@ public class VehicleDaoImpl implements VehicleDao {
     
     }
     
-    
     public static final class TrimMapper implements RowMapper<Trim> {
         @Override
         public Trim mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -263,8 +257,8 @@ public class VehicleDaoImpl implements VehicleDao {
             }
             
             Trim trim = new Trim(rs.getString("TrimName"),
-                                 rs.getString("InteriorColorName"),
-                                 rs.getString("ExteriorColorName"),
+                                 rs.getString("InteriorColor"),
+                                 rs.getString("ExteriorColor"),
                                  transmission);
             
             trim.setId(rs.getInt("TrimID"));
