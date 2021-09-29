@@ -242,12 +242,22 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public List<Condition> getAllVehicleConditions() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_VEHICLECONDITIONS = "SELECT * FROM VehicleCondition";
+        return jdbc.query(SELECT_VEHICLECONDITIONS,
+                          new VehicleConditionMapper());
     }
 
     @Override
     public Condition getVehicleCondition(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_CONDITION_BY_ID = "SELECT * FROM VehicleCondition WHERE VehicleConditionID = ?";
+        
+        try {
+            return jdbc.queryForObject(SELECT_CONDITION_BY_ID,
+                                       new VehicleConditionMapper(),
+                                       id);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -267,7 +277,8 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public void removeVehicleCondition(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_VehicleCondition = "DELETE FROM VehicleCondition WHERE VehicleConditionID = ?";
+        jdbc.update(DELETE_VehicleCondition, id);
     }
     
     public static final class VehicleConditionMapper implements RowMapper<Condition> {
