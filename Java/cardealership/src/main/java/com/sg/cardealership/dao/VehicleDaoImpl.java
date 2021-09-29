@@ -98,7 +98,8 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public void removeVehicle(String vin) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_VEHICLE = "DELETE FROM Vehicle WHERE VIN = ?";
+        jdbc.update(DELETE_VEHICLE, vin);
     }
 
     @Override
