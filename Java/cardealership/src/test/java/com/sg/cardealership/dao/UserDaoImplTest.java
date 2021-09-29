@@ -5,8 +5,12 @@
  */
 package com.sg.cardealership.dao;
 
+import com.sg.cardealership.models.Make;
+import com.sg.cardealership.models.Model;
 import com.sg.cardealership.models.Role;
+import com.sg.cardealership.models.Sale;
 import com.sg.cardealership.models.User;
+import com.sg.cardealership.models.Vehicle;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -27,6 +31,12 @@ public class UserDaoImplTest {
     @Autowired
     UserDao userDao;
     
+    @Autowired
+    SalesDao salesDao;
+    
+    @Autowired
+    VehicleDao vehicleDao;
+    
     public UserDaoImplTest() {
     }
     
@@ -36,12 +46,33 @@ public class UserDaoImplTest {
     
     @AfterAll
     public static void tearDownClass() {
+        
     }
     
     //before each test, get a list of all users in the database if any
     //loop through the list and delete each user fromthe database until empty.
     @BeforeEach
     public void setUp() {
+        List<Sale> sales = salesDao.getAllSales();
+        for(Sale sale: sales){
+            salesDao.removeSale(sale);
+        } 
+        
+        List<Vehicle> vehicles = vehicleDao.getAllVehicles();
+        for(Vehicle vehicle: vehicles){
+            vehicleDao.removeVehicle(vehicle.getVIN());
+        }
+        
+        List<Model> models = vehicleDao.getAllModels();
+        for(Model model: models){
+            vehicleDao.removeModel(model.getId());
+        }
+        
+        List<Make> makes = vehicleDao.getAllMakes();
+        for(Make make: makes){
+            vehicleDao.removeMake(make.getId());
+        }
+        
         List<User> users = userDao.getAllUsers();
         for(User user: users){
             userDao.removeUser(user.getEmail());
@@ -50,6 +81,30 @@ public class UserDaoImplTest {
     
     @AfterEach
     public void tearDown() {
+        List<Sale> sales = salesDao.getAllSales();
+        for(Sale sale: sales){
+            salesDao.removeSale(sale);
+        } 
+        
+        List<Vehicle> vehicles = vehicleDao.getAllVehicles();
+        for(Vehicle vehicle: vehicles){
+            vehicleDao.removeVehicle(vehicle.getVIN());
+        }
+        
+        List<Model> models = vehicleDao.getAllModels();
+        for(Model model: models){
+            vehicleDao.removeModel(model.getId());
+        }
+        
+        List<Make> makes = vehicleDao.getAllMakes();
+        for(Make make: makes){
+            vehicleDao.removeMake(make.getId());
+        }
+        
+        List<User> users = userDao.getAllUsers();
+        for(User user: users){
+            userDao.removeUser(user.getEmail());
+        }
     }
 
     /**
