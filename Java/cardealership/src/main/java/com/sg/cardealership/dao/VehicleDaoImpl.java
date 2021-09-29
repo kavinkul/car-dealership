@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -47,7 +48,30 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public Vehicle getVehicle(String vin) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_VEHICLE_BY_VIN 
+                = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
+                    + "t.`Name` TrimName, ic.`Name` InteriorColorName, ec.`Name` ExteriorColorName, t.Transmission, "
+                    + "m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "FROM Vehicle v "
+                    + "JOIN `Trim` t ON v.TrimID = t.TrimID "
+                    + "JOIN Color ic ON t.InteriorColorID = ic.ColorID "
+                    + "JOIN Color ec ON t.ExteriorColorID = ec.ColorID "
+                    + "JOIN Model m ON v.ModelID = m.ModelID "
+                    + "JOIN ModelYear my ON m.`Year` = my.`Year` "
+                    + "JOIN Make mk ON m.MakeId = mk.MakeId "
+                    + "JOIN `User` mu ON m.UserEmail = mu.Email "
+                    + "JOIN `User` mku ON mk.UserEmail = mku.Email"
+                    + "WHERE v.VIN = ?";
+        try {
+            return jdbc.queryForObject(SELECT_VEHICLE_BY_VIN,
+                                       new VehicleMapper(new VehicleConditionMapper(), 
+                                                         new TrimMapper(), 
+                                                         new ModelMapper(new MakeMapper())),
+                                        vin);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
     @Override
