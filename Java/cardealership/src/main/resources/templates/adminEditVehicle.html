@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <title>Course Manager</title>
+        <style>
+            .card {
+                border: 3px solid rgba(0, 0, 0, 0.5);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Main Body of Page -->
+
+        <div class="container"> 
+            <div class="card">
+                <div class="row">
+                    <img class="col-1" src="img/carPlaceholder.png"/>
+                    <div class="card-body col-11"><a href="">Home</a> | <a href="">New Inventory</a> | <a href="">Used Inventory</a> | <a href="">Specials</a> | <a href="">Contacts</a> | <a href="">Sales</a> | <a href="">Admin</a></div>
+                </div>
+            </div>
+            <h2>Edit Vehicle</h2>
+            <form>
+                <div class="row">
+                    <label for="make" class="col-4 col-form-label font-weight-bold">Make</label>
+                    <label for="minPrice" class="col-4 offset-1 col-form-label font-weight-bold">Model</label>
+                </div>
+                <div class="row">
+                    <select id="make" name="make" class="col-4 form-control">
+                        <option>Audi</option>
+                    </select>
+                    <select id="model" name="model" class="col-4 offset-1 form-control">
+                        <option>A4</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="type" class="col-4 col-form-label font-weight-bold">Type</label>
+                    <label for="bodyStyle" class="col-4 offset-1 col-form-label font-weight-bold">Body Style</label>
+                </div>
+                <div class="row">
+                    <select id="type" name="type" class="col-4 form-control">
+                        <option>New</option>
+                    </select>
+                    <select id="bodyStyle" name="bodyStyle" class="col-4 offset-1 form-control">
+                        <option>Car</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="year" class="col-4 col-form-label font-weight-bold">Year</label>
+                    <label for="transmission" class="col-4 offset-1 col-form-label font-weight-bold">Transmission</label>
+                </div>
+                <div class="row">
+                    <input type="text" name="year" id="year" class="col-4 form-control" placeholder=""/>
+                    <select id="transmission" name="transmission" class="col-4 offset-1 form-control">
+                        <option>Automatic</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="color" class="col-4 col-form-label font-weight-bold">Color</label>
+                    <label for="interior" class="col-4 offset-1 col-form-label font-weight-bold">Interior</label>
+                </div>
+                <div class="row">
+                    <select id="color" name="color" class="col-4 form-control">
+                        <option>Black</option>
+                    </select>
+                    <select id="interior" name="interior" class="col-4 offset-1 form-control">
+                        <option>Black</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="mileage" class="col-4 col-form-label font-weight-bold">Mileage</label>
+                    <label for="vin" class="col-4 offset-1 col-form-label font-weight-bold">VIN #</label>
+                </div>
+                <div class="row">
+                    <input type="text" name="mileage" id="mileage" class="col-4 form-control" placeholder=""/>
+                    <input type="text" name="vin" id="vin" class="col-4 offset-1 form-control" placeholder=""/>
+                </div>
+                <div class="row">
+                    <label for="msrp" class="col-4 col-form-label font-weight-bold">MSRP</label>
+                    <label for="salePrice" class="col-4 offset-1 col-form-label font-weight-bold">Sale Price</label>
+                </div>
+                <div class="row">
+                    <input type="text" name="msrp" id="msrp" class="col-4 form-control" placeholder=""/>
+                    <input type="text" name="salePrice" id="salePrice" class="col-4 offset-1 form-control" placeholder=""/>
+                </div>
+                <div class="row">
+                    <label for="description" class="col-9 col-form-label font-weight-bold">Description</label>
+                </div>
+                <div class="row">
+                    <textarea type="text" name="description" id="description" class="col-9 form-control" placeholder=""/></textarea>
+                </div>
+                <div class="row">
+                    <img class="col-1" style="margin-top: 1em;"src="img/carPlaceholder.png"/>
+                </div>
+                <div class="row">
+                    <label for="picture" class="col-4 col-form-label font-weight-bold">Replace Picture</label>
+                </div>
+                <div class="row">
+                    <div class="col-4 custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <input type="checkbox" id="feature">
+                        <label class="col-form-label font-weight-bold" for="feature">Feature this vehicle</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 1em; margin-bottom: 1em;">
+                    <a href="#" class="col-1 btn btn-danger" style="">Delete</a>
+                    <a href="#" class="col-1 offset-1 btn btn-success" style="">Save</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- End main body -->
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>
