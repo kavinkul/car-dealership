@@ -10,7 +10,6 @@ import com.sg.cardealership.models.Type;
 import com.sg.cardealership.models.Vehicle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -28,15 +27,12 @@ public class VehicleDaoImpl implements VehicleDao {
     public List<Vehicle> getAllVehicles() {
         final String SELECT_ALL_VEHICLES 
                 = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
-                    + "t.`Name` TrimName, ic.`Name` InteriorColorName, ec.`Name` ExteriorColorName, t.Transmission, "
-                    + "m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
-                    + "mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
+                    + "m.ModelId, m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.MakeId, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
-                    + "JOIN Color ic ON t.InteriorColorID = ic.ColorID "
-                    + "JOIN Color ec ON t.ExteriorColorID = ec.ColorID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
-                    + "JOIN ModelYear my ON m.`Year` = my.`Year` "
                     + "JOIN Make mk ON m.MakeId = mk.MakeId "
                     + "JOIN `User` mu ON m.UserEmail = mu.Email "
                     + "JOIN `User` mku ON mk.UserEmail = mku.Email";
@@ -51,18 +47,15 @@ public class VehicleDaoImpl implements VehicleDao {
     public Vehicle getVehicle(String vin) {
         final String SELECT_VEHICLE_BY_VIN 
                 = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
-                    + "t.`Name` TrimName, ic.`Name` InteriorColorName, ec.`Name` ExteriorColorName, t.Transmission, "
-                    + "m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
-                    + "mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
+                    + "m.ModelId, m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.MakeId, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
-                    + "JOIN Color ic ON t.InteriorColorID = ic.ColorID "
-                    + "JOIN Color ec ON t.ExteriorColorID = ec.ColorID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
-                    + "JOIN ModelYear my ON m.`Year` = my.`Year` "
                     + "JOIN Make mk ON m.MakeId = mk.MakeId "
                     + "JOIN `User` mu ON m.UserEmail = mu.Email "
-                    + "JOIN `User` mku ON mk.UserEmail = mku.Email"
+                    + "JOIN `User` mku ON mk.UserEmail = mku.Email "
                     + "WHERE v.VIN = ?";
         try {
             return jdbc.queryForObject(SELECT_VEHICLE_BY_VIN,
@@ -80,42 +73,24 @@ public class VehicleDaoImpl implements VehicleDao {
     public void addVehicle(Vehicle vehicle) {
         final String INSERT_VEHICLE 
                 = "INSERT INTO Vehicle VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        final String INSERT_VEHICLE_TRIM 
-                = "INSERT INTO Vehicle (`Name`, InteriorColorID, ExteriorColorID, Transmission) VALUES (?, ?, ?, ?)";
-        final String INSERT_VEHICLE_CONDITION 
-                = "INSERT INTO Vehicle (Mileage, MileageUnit, `Type`) VALUES (?, ?, ?)";
         
         // Insert VehicleCondition
         Condition condition = vehicle.getVehicleCondition();
-        jdbc.update(INSERT_VEHICLE_CONDITION,
-                    condition.getMileage(),
-                    condition.getUnit(),
-                    condition.getType());
-        
-        int conditionId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        condition.setId(conditionId);
+        addVehicleCondition(condition);
         
         // Insert Trim
-        // TODO: Query Color
         Trim trim = vehicle.getTrim();
-        jdbc.update(INSERT_VEHICLE_TRIM,
-                    trim.getName(),
-                    1,
-                    1,
-                    trim.getTransmission().toString());
-        
-        int trimId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        trim.setId(trimId);
+        addTrim(trim);
         
         // Insert Vehicle
         jdbc.update(INSERT_VEHICLE,
                     vehicle.getVIN(),
                     vehicle.getModel().getId(),
-                    conditionId,
+                    condition.getId(),
                     vehicle.getBodyStyle(),
                     vehicle.getPicture(),
                     vehicle.getDescription(),
-                    trimId,
+                    trim.getId(),
                     vehicle.getSalesPrice(),
                     vehicle.getMSRP(),
                     vehicle.isFeatured());
@@ -153,22 +128,50 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public List<Model> getAllModels() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_MODELS
+                = "SELECT m.ModelID, m.`Name` ModelName, m.`Year` ModelYear, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.MakeID, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "FROM Model m JOIN Make mk ON m.MakeId = mk.MakeId ";
+        
+        return jdbc.query(SELECT_MODELS, new ModelMapper(new MakeMapper()));
     }
 
     @Override
     public Model getModel(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_MODEL_BY_ID 
+                = "SELECT m.ModelID, m.`Name` ModelName, m.`Year` ModelYear, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.MakeID, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "FROM Model m JOIN Make mk ON m.MakeId = mk.MakeId "
+                    + "WHERE m.ModelId = ?";
+        try {
+            return jdbc.queryForObject(SELECT_MODEL_BY_ID,
+                                       new ModelMapper(new MakeMapper()),
+                                       id);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
     @Override
+    @Transactional
     public void addModel(Model model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_MODEL
+                = "INSERT INTO Model (`Name`, `Year`, DateAdded, UserEmail, MakeID) VALUES (?, ?, ?, ?, ?)";
+        
+        jdbc.update(INSERT_MODEL,
+                    model.getName(),
+                    model.getMake(),
+                    model.getDateAdded(),
+                    model.getMake().getId());
+        
+        int modelId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        model.setId(modelId);
     }
 
     @Override
     public void removeModel(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_MODEL = "DELETE FROM Model WHERE ModelID = ?";
+        jdbc.update(DELETE_MODEL, id);
     }
 
     @Override
@@ -182,8 +185,19 @@ public class VehicleDaoImpl implements VehicleDao {
     }
 
     @Override
+    @Transactional
     public void addTrim(Trim trim) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_VEHICLE_TRIM 
+                = "INSERT INTO `Trim` (`Name`, InteriorColor, ExteriorColor, Transmission) VALUES (?, ?, ?, ?)";
+        
+        jdbc.update(INSERT_VEHICLE_TRIM,
+                    trim.getName(),
+                    trim.getInteriorColor(),
+                    trim.getExteriorColor(),
+                    trim.getTransmission().toString());
+        
+        int trimId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        trim.setId(trimId);
     }
 
     @Override
@@ -202,8 +216,18 @@ public class VehicleDaoImpl implements VehicleDao {
     }
 
     @Override
+    @Transactional
     public void addVehicleCondition(Condition condition) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_VEHICLE_CONDITION 
+                = "INSERT INTO VehicleCondition (Mileage, MileageUnit, `Type`) VALUES (?, ?, ?)";
+        
+        jdbc.update(INSERT_VEHICLE_CONDITION,
+                    condition.getMileage(),
+                    condition.getUnit(),
+                    condition.getType());
+        
+        int conditionId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        condition.setId(conditionId);
     }
 
     @Override
@@ -245,7 +269,6 @@ public class VehicleDaoImpl implements VehicleDao {
     
     }
     
-    
     public static final class TrimMapper implements RowMapper<Trim> {
         @Override
         public Trim mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -260,8 +283,8 @@ public class VehicleDaoImpl implements VehicleDao {
             }
             
             Trim trim = new Trim(rs.getString("TrimName"),
-                                 rs.getString("InteriorColorName"),
-                                 rs.getString("ExteriorColorName"),
+                                 rs.getString("InteriorColor"),
+                                 rs.getString("ExteriorColor"),
                                  transmission);
             
             trim.setId(rs.getInt("TrimID"));
@@ -280,7 +303,6 @@ public class VehicleDaoImpl implements VehicleDao {
         }
     }
     
-    
     public static final class ModelMapper implements RowMapper<Model> {
         private final MakeMapper makeMapper;
 
@@ -297,6 +319,8 @@ public class VehicleDaoImpl implements VehicleDao {
                                     rs.getDate("ModelDateAdded").toLocalDate(), 
                                     rs.getString("ModelUserEmail"),
                                     make);
+            
+            model.setId(rs.getInt("ModelID"));
             
             return model;
         }
