@@ -108,22 +108,45 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public List<Make> getAllMakes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_MAKES = "SELECT MakeID, `Name` MakeName, DateAdded MakeDateAdded, UserEmail MakeUserEmail FROM Make";
+        return jdbc.query(SELECT_MAKES,
+                          new MakeMapper());
     }
 
     @Override
     public Make getMake(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_MAKE_BY_ID 
+                = "SELECT MakeID, `Name` MakeName, DateAdded MakeDateAdded, UserEmail MakeUserEmail FROM Make "
+                    + "WHERE MakeID = ?";
+        
+        try {
+            return jdbc.queryForObject(SELECT_MAKE_BY_ID,
+                                       new MakeMapper(),
+                                       id);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
     @Override
+    @Transactional
     public void addMake(Make make) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_MAKE
+                = "INSERT INTO Make (`Name`, DateAdded, UserEmail) VALUES (?, ?, ?)";
+        
+        jdbc.update(INSERT_MAKE,
+                    make.getName(),
+                    make.getDateAdded(),
+                    make.getUser());
+        
+        int makeId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        make.setId(makeId);
     }
 
     @Override
     public void removeMake(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_MAKE = "DELETE FROM Make WHERE MakeID = ?";
+        jdbc.update(DELETE_MAKE, id);
     }
 
     @Override
