@@ -33,7 +33,6 @@ public class VehicleDaoImpl implements VehicleDao {
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
-                    + "JOIN ModelYear my ON m.`Year` = my.`Year` "
                     + "JOIN Make mk ON m.MakeId = mk.MakeId "
                     + "JOIN `User` mu ON m.UserEmail = mu.Email "
                     + "JOIN `User` mku ON mk.UserEmail = mku.Email";
@@ -54,7 +53,6 @@ public class VehicleDaoImpl implements VehicleDao {
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
-                    + "JOIN ModelYear my ON m.`Year` = my.`Year` "
                     + "JOIN Make mk ON m.MakeId = mk.MakeId "
                     + "JOIN `User` mu ON m.UserEmail = mu.Email "
                     + "JOIN `User` mku ON mk.UserEmail = mku.Email "
@@ -276,7 +274,6 @@ public class VehicleDaoImpl implements VehicleDao {
             return make;
         }
     }
-    
     
     public static final class ModelMapper implements RowMapper<Model> {
         private final MakeMapper makeMapper;
