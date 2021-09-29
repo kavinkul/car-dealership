@@ -44,6 +44,33 @@
       <!-- ------------------------Page Header------------------------------ -->
         <h1>Specials</h1>
         
+      <!-- -------------------Adding Specials Section----------------------- -->
+        <div id="addSpecialBox" class="card">
+            <div class="card-body">
+                <div class="row">
+
+                    <form action="addSpecial" method="POST">
+                        <div class="form-group row">
+                            <label for="specialTitle" class="col-5 col-form-label">
+                                Title</label>
+                            <div class="col-7">
+                                <input type="text" name="specialTitle" 
+                                       id="specialTitle" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="specialDescription" class="col-5 col-form-label">
+                                Description</label>
+                            <div class="col-7">
+                                <input type="text" name="specialDescription" 
+                                       id="specialDescription" class="form-control"/>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
         
       <!-- ------------------------Specials Listings------------------------ -->
       <!-- begin for each loop via thymelyfe to cycle through specials info- --> 
