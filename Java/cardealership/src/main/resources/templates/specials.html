@@ -1,3 +1,6 @@
+<!-- Austin Graham 09/29/2021 -->
+<!-- html template file for viewing all Car Dealership Specials -->
+
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -9,34 +12,53 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <title>Specials</title>
+    <style>
+        .card {
+            border: 3px solid rgba(0, 0, 0, 0.5);
+        }
+        .card-img-left {
+            flex-direction: row;
+        }
+    </style>
   </head>
   <body>
   <!-- Main Body of Page -->
     <div class="container">
       
       <!-- ------------------------Menu Bar--------------------------------- -->  
-        <div class="row m-4 border border-dark">
-            <div class="col text-center m-2">
-                <a href="home" class="btn btn-outline-primary btn-lg">Home</a>
-            </div>
-            <div class="col text-center m-2">
-                <a href="newInventory" class="btn btn-outline-primary btn-lg">New Inventory</a>
-            </div>
-            <div class="col text-center m-2">
-                <a href="usedInventory" class="btn btn-outline-primary btn-lg">Used Inventory</a>
-            </div>
-            <div class="col text-center m-2">
-                <a href="specials" class="btn btn-outline-primary btn-lg">Specials</a>
-            </div>
-            <div>
-                <a href="contact" class="btn btn-outline-primary btn-lg">Contact</a>
+        <div class="col m-2 card card-img-left">
+            <img style="width: 5%;" src="img/carPlaceholder.png"/>
+            <div class="card-body"><a href="">Home</a> | 
+                                   <a href="">New Inventory</a> | 
+                                   <a href="">Used Inventory</a> | 
+                                   <a href="">Specials</a> | 
+                                   <a href="">Contacts</a> | 
+                                   <a href="">Sales</a> | 
+                                   <a href="">Admin</a></div>
+        </div>
+      
+      <!-- ------------------------Page Header------------------------------ -->
+        <h1>Specials</h1>
+      <!-- ------------------------Specials Listings------------------------ -->  
+        <div id="currentSpecials" class="card">
+            <div class="card-body">
+                <div th:each="special : ${specials}">
+                    <div class="row">
+                        
+                        <div class="col-1">
+                            <img style="width: 50px; height: 50px;" src="img/carPlaceholder.png"/>
+                        </div>
+                        <h5 class="col col-6 card-title" th:text="${special.title}">Special Title</h5>
+                        <div id="descriptionDiv" class="col-6"
+                             th:text="${special.description}">
+                            Special Description
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row m-4">
-            <div class="col text-center border border-dark">
-                <h1><a href="/" class="text-dark">Course Manager</a></h1>
-            </div>
-        </div>
+      <!--
         <div class="row m-4 border border-dark">
             <div class="col-3 text-center m-3">
                 <span class="h3">Add Student</span>
@@ -63,30 +85,21 @@
                 </form>
             </div>
         </div>
+      
+      
         <div class="row m-4 border border-dark">
             <div class="col text-center m-3">
                 <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
                     <tbody>
-                        <tr th:each="student : ${students}">
-                            <td th:text="${student.id}">Teacher ID</td>
-                            <td th:text="${student.firstName}">Teacher First Name</td>
-                            <td th:text="${student.lastName}">Teacher Last Name</td>
-                            <td><a href="#" th:href="@{/editStudent(id=${student.id})}">Edit</a></td>
-                            <td><a href="#" th:href="@{/deleteStudent(id=${student.id})}">Delete</a></td>
+                        <tr th:each="special : ${specials}">
+                            <td th:text="${special.title}">Special Title</td>
+                            <td th:text="${special.description}">Special Description</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+      -->
     </div>
 
     <!-- End main body -->
