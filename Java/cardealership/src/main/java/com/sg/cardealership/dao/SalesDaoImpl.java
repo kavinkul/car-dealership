@@ -65,7 +65,7 @@ public class SalesDaoImpl implements SalesDao {
     @Override
     @Transactional
     public void addSale(User user, Vehicle vehicle) {
-        final String INSERT_SALE = "INSERT INTO Sale "
+        final String INSERT_SALE = "INSERT INTO Sales "
                 + "VALUES(?,?)";
         jdbc.update(INSERT_SALE,
                 user.getEmail(),

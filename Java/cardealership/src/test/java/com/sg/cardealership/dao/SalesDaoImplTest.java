@@ -18,7 +18,6 @@ import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
