@@ -28,8 +28,8 @@ public class VehicleDaoImpl implements VehicleDao {
         final String SELECT_ALL_VEHICLES 
                 = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
                     + "t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
-                    + "m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
-                    + "mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "m.ModelId, m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.MakeId, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
@@ -48,8 +48,8 @@ public class VehicleDaoImpl implements VehicleDao {
         final String SELECT_VEHICLE_BY_VIN 
                 = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
                     + "t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
-                    + "m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
-                    + "mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "m.ModelId, m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.MakeId, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
@@ -128,22 +128,50 @@ public class VehicleDaoImpl implements VehicleDao {
 
     @Override
     public List<Model> getAllModels() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_MODELS
+                = "SELECT m.ModelID, m.`Name` ModelName, m.`Year` ModelYear, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.MakeID, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "FROM Model m JOIN Make mk ON m.MakeId = mk.MakeId ";
+        
+        return jdbc.query(SELECT_MODELS, new ModelMapper(new MakeMapper()));
     }
 
     @Override
     public Model getModel(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_MODEL_BY_ID 
+                = "SELECT m.ModelID, m.`Name` ModelName, m.`Year` ModelYear, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.MakeID, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "FROM Model m JOIN Make mk ON m.MakeId = mk.MakeId "
+                    + "WHERE m.ModelId = ?";
+        try {
+            return jdbc.queryForObject(SELECT_MODEL_BY_ID,
+                                       new ModelMapper(new MakeMapper()),
+                                       id);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
     @Override
+    @Transactional
     public void addModel(Model model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_MODEL
+                = "INSERT INTO Model (`Name`, `Year`, DateAdded, UserEmail, MakeID) VALUES (?, ?, ?, ?, ?)";
+        
+        jdbc.update(INSERT_MODEL,
+                    model.getName(),
+                    model.getMake(),
+                    model.getDateAdded(),
+                    model.getMake().getId());
+        
+        int modelId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        model.setId(modelId);
     }
 
     @Override
     public void removeModel(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String DELETE_MODEL = "DELETE FROM Model WHERE ModelID = ?";
+        jdbc.update(DELETE_MODEL, id);
     }
 
     @Override
@@ -291,6 +319,8 @@ public class VehicleDaoImpl implements VehicleDao {
                                     rs.getDate("ModelDateAdded").toLocalDate(), 
                                     rs.getString("ModelUserEmail"),
                                     make);
+            
+            model.setId(rs.getInt("ModelID"));
             
             return model;
         }
