@@ -24,7 +24,25 @@ public class VehicleDaoImpl implements VehicleDao {
             
     @Override
     public List<Vehicle> getAllVehicles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String SELECT_ALL_VEHICLES 
+                = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
+                    + "t.`Name` TrimName, ic.`Name` InteriorColorName, ec.`Name` ExteriorColorName, t.Transmission, "
+                    + "m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
+                    + "FROM Vehicle v "
+                    + "JOIN `Trim` t ON v.TrimID = t.TrimID "
+                    + "JOIN Color ic ON t.InteriorColorID = ic.ColorID "
+                    + "JOIN Color ec ON t.ExteriorColorID = ec.ColorID "
+                    + "JOIN Model m ON v.ModelID = m.ModelID "
+                    + "JOIN ModelYear my ON m.`Year` = my.`Year` "
+                    + "JOIN Make mk ON m.MakeId = mk.MakeId "
+                    + "JOIN `User` mu ON m.UserEmail = mu.Email "
+                    + "JOIN `User` mku ON mk.UserEmail = mku.Email";
+        
+        return jdbc.query(SELECT_ALL_VEHICLES,
+                          new VehicleMapper(new VehicleConditionMapper(), 
+                                            new TrimMapper(), 
+                                            new ModelMapper(new MakeMapper())));
     }
 
     @Override
