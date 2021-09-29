@@ -28,10 +28,6 @@ CREATE TABLE Make (
     CONSTRAINT FK_UserEmail_Make FOREIGN KEY (UserEmail) REFERENCES `User`(Email)
 );
 
-CREATE TABLE ModelYear (
-    `Year` YEAR PRIMARY KEY
-);
-
 CREATE TABLE Model (
 	ModelID INT PRIMARY KEY AUTO_INCREMENT,
 	`Name` VARCHAR(20) NOT NULL,
@@ -40,8 +36,7 @@ CREATE TABLE Model (
     UserEmail VARCHAR(40) NOT NULL,
     MakeID INT NOT NULL,
     CONSTRAINT FK_UserEmail_Model FOREIGN KEY (UserEmail) REFERENCES `User`(Email),
-    CONSTRAINT FK_MakeID_Model FOREIGN KEY (MakeID) REFERENCES Make(MakeID),
-    CONSTRAINT FK_Year_Model FOREIGN KEY (`Year`) REFERENCES ModelYear(`Year`)
+    CONSTRAINT FK_MakeID_Model FOREIGN KEY (MakeID) REFERENCES Make(MakeID)
 );
 
 CREATE TABLE VehicleCondition  (
@@ -97,9 +92,6 @@ INSERT INTO `Trim`(`Name`, InteriorColor, ExteriorColor, Transmission) VALUES ("
 
 INSERT INTO Make(`Name`, DateAdded, UserEmail) VALUES("Toyota", '2021-09-27', "JG@gmail.com");
 INSERT INTO Make(`Name`, DateAdded, UserEmail) VALUES("Hyundai", '2020-05-18', "JG@gmail.com");
-
-INSERT INTO ModelYear VALUES(2008);
-INSERT INTO ModelYear VALUES(2015);
 
 INSERT INTO Model(`Name`, `Year`, DateAdded, UserEmail, MakeID) VALUES("Camry", 2008, '2021-09-27', "JG@gmail.com", 1);
 INSERT INTO Model(`Name`, `Year`, DateAdded, UserEmail, MakeID) VALUES("Accent", 2015, '2020-05-18', "JG@gmail.com", 2);
