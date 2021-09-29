@@ -80,42 +80,24 @@ public class VehicleDaoImpl implements VehicleDao {
     public void addVehicle(Vehicle vehicle) {
         final String INSERT_VEHICLE 
                 = "INSERT INTO Vehicle VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        final String INSERT_VEHICLE_TRIM 
-                = "INSERT INTO Vehicle (`Name`, InteriorColorID, ExteriorColorID, Transmission) VALUES (?, ?, ?, ?)";
-        final String INSERT_VEHICLE_CONDITION 
-                = "INSERT INTO Vehicle (Mileage, MileageUnit, `Type`) VALUES (?, ?, ?)";
         
         // Insert VehicleCondition
         Condition condition = vehicle.getVehicleCondition();
-        jdbc.update(INSERT_VEHICLE_CONDITION,
-                    condition.getMileage(),
-                    condition.getUnit(),
-                    condition.getType());
-        
-        int conditionId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        condition.setId(conditionId);
+        addVehicleCondition(condition);
         
         // Insert Trim
-        // TODO: Query Color
         Trim trim = vehicle.getTrim();
-        jdbc.update(INSERT_VEHICLE_TRIM,
-                    trim.getName(),
-                    1,
-                    1,
-                    trim.getTransmission().toString());
-        
-        int trimId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        trim.setId(trimId);
+        addTrim(trim);
         
         // Insert Vehicle
         jdbc.update(INSERT_VEHICLE,
                     vehicle.getVIN(),
                     vehicle.getModel().getId(),
-                    conditionId,
+                    condition.getId(),
                     vehicle.getBodyStyle(),
                     vehicle.getPicture(),
                     vehicle.getDescription(),
-                    trimId,
+                    trim.getId(),
                     vehicle.getSalesPrice(),
                     vehicle.getMSRP(),
                     vehicle.isFeatured());
@@ -182,8 +164,19 @@ public class VehicleDaoImpl implements VehicleDao {
     }
 
     @Override
+    @Transactional
     public void addTrim(Trim trim) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_VEHICLE_TRIM 
+                = "INSERT INTO Vehicle (`Name`, InteriorColorID, ExteriorColorID, Transmission) VALUES (?, ?, ?, ?)";
+        
+        jdbc.update(INSERT_VEHICLE_TRIM,
+                    trim.getName(),
+                    1,
+                    1,
+                    trim.getTransmission().toString());
+        
+        int trimId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        trim.setId(trimId);
     }
 
     @Override
@@ -202,8 +195,18 @@ public class VehicleDaoImpl implements VehicleDao {
     }
 
     @Override
+    @Transactional
     public void addVehicleCondition(Condition condition) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String INSERT_VEHICLE_CONDITION 
+                = "INSERT INTO VehicleCondition (Mileage, MileageUnit, `Type`) VALUES (?, ?, ?)";
+        
+        jdbc.update(INSERT_VEHICLE_CONDITION,
+                    condition.getMileage(),
+                    condition.getUnit(),
+                    condition.getType());
+        
+        int conditionId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        condition.setId(conditionId);
     }
 
     @Override
