@@ -96,7 +96,7 @@ public class VehicleDaoTest {
                                       null,
                                       "clean and reliable",
                                       new Trim("trim", "black", "red", Transmission.AUTOMATIC),
-                                      new BigDecimal("24500"),
+                                      new BigDecimal("24500.00"),
                                       new BigDecimal("27000.60"),
                                       false);
         
@@ -149,7 +149,7 @@ public class VehicleDaoTest {
                                            null,
                                            "clean and reliable",
                                            new Trim("trim", "black", "red", Transmission.AUTOMATIC),
-                                           new BigDecimal("24500"),
+                                           new BigDecimal("24500.00"),
                                            new BigDecimal("27000.60"),
                                            false);
         
@@ -163,7 +163,7 @@ public class VehicleDaoTest {
                                             null,
                                             "gas guzzler",
                                             new Trim("trim", "black", "blue", Transmission.MANUAL),
-                                            new BigDecimal("26000"),
+                                            new BigDecimal("26000.00"),
                                             new BigDecimal("30000.32"),
                                             true);
         
@@ -214,7 +214,7 @@ public class VehicleDaoTest {
                                       null,
                                       "clean and reliable",
                                       new Trim("trim", "black", "red", Transmission.AUTOMATIC),
-                                      new BigDecimal("24500"),
+                                      new BigDecimal("24500.00"),
                                       new BigDecimal("27000.60"),
                                       false);
         
@@ -262,7 +262,7 @@ public class VehicleDaoTest {
                                       null,
                                       "clean and reliable",
                                       new Trim("trim", "black", "red", Transmission.AUTOMATIC),
-                                      new BigDecimal("24500"),
+                                      new BigDecimal("24500.00"),
                                       new BigDecimal("27000.60"),
                                       false);
         
@@ -271,7 +271,7 @@ public class VehicleDaoTest {
         assertEquals(vehicle, vehicleFromDao);
         
         // Edit Vehicle
-        vehicle.setSalesPrice(new BigDecimal("23000"));
+        vehicle.setSalesPrice(new BigDecimal("23000.00"));
         vehicleDao.editVehicle(vehicle);
         assertNotEquals(vehicle, vehicleFromDao);
     }
@@ -363,6 +363,7 @@ public class VehicleDaoTest {
         assertEquals(model, vehicleDao.getModel(model.getId()));
     }
     
+    @Test
     public void testGetAllModels() {
         // Adding User
         User user = new User("elizbeth@gmail.com",

@@ -131,16 +131,16 @@ public class Vehicle {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 31 * hash + Objects.hashCode(this.VIN);
-        hash = 31 * hash + Objects.hashCode(this.model);
-        hash = 31 * hash + Objects.hashCode(this.vehicleCondition);
-        hash = 31 * hash + Objects.hashCode(this.bodyStyle);
-        hash = 31 * hash + Objects.hashCode(this.picture);
-        hash = 31 * hash + Objects.hashCode(this.description);
-        hash = 31 * hash + Objects.hashCode(this.trim);
-        hash = 31 * hash + Objects.hashCode(this.salesPrice);
-        hash = 31 * hash + Objects.hashCode(this.MSRP);
-        hash = 31 * hash + (this.featured ? 1 : 0);
+        hash = 83 * hash + Objects.hashCode(this.VIN);
+        hash = 83 * hash + Objects.hashCode(this.model);
+        hash = 83 * hash + Objects.hashCode(this.vehicleCondition);
+        hash = 83 * hash + Objects.hashCode(this.bodyStyle);
+        hash = 83 * hash + Objects.hashCode(this.picture);
+        hash = 83 * hash + Objects.hashCode(this.description);
+        hash = 83 * hash + Objects.hashCode(this.trim);
+        hash = 83 * hash + Objects.hashCode(this.salesPrice);
+        hash = 83 * hash + Objects.hashCode(this.MSRP);
+        hash = 83 * hash + (this.featured ? 1 : 0);
         return hash;
     }
 
@@ -193,6 +193,4 @@ public class Vehicle {
     public String toString() {
         return "Vehicle{" + "VIN=" + VIN + ", model=" + model + ", vehicleCondition=" + vehicleCondition + ", bodyStyle=" + bodyStyle + ", picture=" + picture + ", description=" + description + ", trim=" + trim + ", salesPrice=" + salesPrice + ", MSRP=" + MSRP + ", featured=" + featured + '}';
     }
-
-    
 }
