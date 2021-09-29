@@ -47,23 +47,41 @@
       <!-- -------------------Adding Specials Section----------------------- -->
         <div id="addSpecialBox" class="card">
             <div class="card-body">
-                <div class="row">
+                <div>
 
                     <form action="addSpecial" method="POST">
                         <div class="form-group row">
-                            <label for="specialTitle" class="col-5 col-form-label">
-                                Title</label>
-                            <div class="col-7">
-                                <input type="text" name="specialTitle" 
-                                       id="specialTitle" class="form-control"/>
+                            <label for="specialTitle" 
+                                   class="col-2 col-form-label font-weight-bold">
+                                Title
+                            </label>
+                            <div class="col-5">
+                                <input type="text" 
+                                       name="specialTitle" 
+                                       id="specialTitle" 
+                                       class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="specialDescription" class="col-5 col-form-label">
-                                Description</label>
-                            <div class="col-7">
-                                <input type="text" name="specialDescription" 
-                                       id="specialDescription" class="form-control"/>
+                            <label for="specialDescription" 
+                                   class="col-2 col-form-label font-weight-bold">
+                                Description
+                            </label>
+                            <div class="col-10">
+                                <textarea type="text" 
+                                          name="description" 
+                                          id="description" 
+                                          class="col-10 form-control" 
+                                          placeholder=""/>
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="row col-4">   
+                            <div class="col-2">
+                                <button type="submit" 
+                                        class="btn btn-primary">
+                                    Save
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -86,7 +104,8 @@
                         <div class="col-11">
                             <div class="row">
                                 <h5 class="col-10 card-title" th:text="${special.title}">Special Title</h5>
-                                <a href="#" class="row col-1 btn btn-danger" style="">Delete</a>
+                                <a href="#" class="col-1 btn btn-danger" 
+                                   th:href="@{/deleteSpecial(id=${special.specialId})}">Delete</a>
                             </div>    
                             <div class="row">
                                 <div id="descriptionDiv" class="col-12"
