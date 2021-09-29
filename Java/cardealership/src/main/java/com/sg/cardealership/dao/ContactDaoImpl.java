@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class ContactDaoImpl implements ContactDao {
@@ -32,6 +33,7 @@ public class ContactDaoImpl implements ContactDao {
     }
 
     @Override
+    @Transactional
     public void addContact(Contact contact) {
         final String INSERT_CONTACT = "INSERT INTO Contacts (FirstName, LastName, Phone, Email, MessageBox) "
                  + "VALUES (?, ?, ?, ?, ?)";
@@ -41,7 +43,10 @@ public class ContactDaoImpl implements ContactDao {
                     contact.getLastName(),
                     contact.getPhoneNumber(),
                     contact.getEmail(),
-                    contact.getMessage());        
+                    contact.getMessage());  
+        
+        int contactId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        contact.setId(contactId);
     }
 
     @Override

@@ -1,5 +1,5 @@
 <!-- Austin Graham 09/29/2021 -->
-<!-- html template file for viewing all Car Dealership Specials -->
+<!-- html template for viewing,adding,deleting Car Dealership Specials(admin access only) -->
 
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
@@ -9,9 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" 
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+          crossorigin="anonymous">
 
-    <title>Specials</title>
+    <title>Admin Specials</title>
     <style>
         .card {
             border: 3px solid rgba(0, 0, 0, 0.5);
@@ -40,21 +43,24 @@
       
       <!-- ------------------------Page Header------------------------------ -->
         <h1>Specials</h1>
+        
+        
       <!-- ------------------------Specials Listings------------------------ -->
-      <!-- begin for each loop via thymelyfe to cycle through specials info- -->
+      <!-- begin for each loop via thymelyfe to cycle through specials info- --> 
         <div id="currentSpecials" th:each="special : ${specials}">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body"> 
                     <div class="row">
 
-                      <!-- display contents of specials objects received from database -->   
+                      <!-- display contents of specials objects received from database -->  
                         <div class="col-1">
                             <img style="width: 50px; height: 50px;" src="img/carPlaceholder.png"/>
                         </div>
                         <div class="col-11">
                             <div class="row">
-                                <h5 class="col card-title" th:text="${special.title}">Special Title</h5>
-                            </div>
+                                <h5 class="col-10 card-title" th:text="${special.title}">Special Title</h5>
+                                <a href="#" class="row col-1 btn btn-danger" style="">Delete</a>
+                            </div>    
                             <div class="row">
                                 <div id="descriptionDiv" class="col-12"
                                     th:text="${special.description}">

@@ -27,11 +27,13 @@ public class VehicleDaoImpl implements VehicleDao {
     public List<Vehicle> getAllVehicles() {
         final String SELECT_ALL_VEHICLES 
                 = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
-                    + "t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
-                    + "m.ModelId, m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "t.TrimID, t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
+                    + "vc.VehicleConditionID, vc.Mileage, vc.MileageUnit, vc.`Type`, "
+                    + "m.ModelId, m.`Name` ModelName, m.`Year` ModelYear, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
                     + "mk.MakeId, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
+                    + "JOIN VehicleCondition vc ON v.VehicleConditionID = vc.VehicleConditionID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
                     + "JOIN Make mk ON m.MakeId = mk.MakeId "
                     + "JOIN `User` mu ON m.UserEmail = mu.Email "
@@ -47,11 +49,13 @@ public class VehicleDaoImpl implements VehicleDao {
     public Vehicle getVehicle(String vin) {
         final String SELECT_VEHICLE_BY_VIN 
                 = "SELECT v.VIN, v.BodyStyle, v.Picture, v.`Description`, v.SalesPrice, v.MSRP, v.Featured, "
-                    + "t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
-                    + "m.ModelId, m.`Name` ModelName, m.`Year`, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
+                    + "t.TrimID, t.`Name` TrimName, t.InteriorColor, t.ExteriorColor, t.Transmission, "
+                    + "vc.VehicleConditionID, vc.Mileage, vc.MileageUnit, vc.`Type`, "
+                    + "m.ModelId, m.`Name` ModelName, m.`Year` ModelYear, m.DateAdded ModelDateAdded, m.UserEmail ModelUserEmail, "
                     + "mk.MakeId, mk.`Name` MakeName, mk.DateAdded MakeDateAdded, mk.UserEmail MakeUserEmail "
                     + "FROM Vehicle v "
                     + "JOIN `Trim` t ON v.TrimID = t.TrimID "
+                    + "JOIN VehicleCondition vc ON v.VehicleConditionID = vc.VehicleConditionID "
                     + "JOIN Model m ON v.ModelID = m.ModelID "
                     + "JOIN Make mk ON m.MakeId = mk.MakeId "
                     + "JOIN `User` mu ON m.UserEmail = mu.Email "
@@ -184,8 +188,9 @@ public class VehicleDaoImpl implements VehicleDao {
         
         jdbc.update(INSERT_MODEL,
                     model.getName(),
-                    model.getMake(),
+                    model.getYear(),
                     model.getDateAdded(),
+                    model.getUser(),
                     model.getMake().getId());
         
         int modelId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
@@ -269,8 +274,8 @@ public class VehicleDaoImpl implements VehicleDao {
         
         jdbc.update(INSERT_VEHICLE_CONDITION,
                     condition.getMileage(),
-                    condition.getUnit(),
-                    condition.getType());
+                    condition.getUnit().toString(),
+                    condition.getType().toString());
         
         int conditionId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         condition.setId(conditionId);
