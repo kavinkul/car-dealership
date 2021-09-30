@@ -44,10 +44,8 @@
                 </div>
                 <div class="row">
                     <input type="text" name="email" id="email" class="col-4 form-control" required>
-                    <select id="role" name="role" class="col-1 offset-1 form-control">
-                        <option>Admin</option>
-                        <option>Sales</option>
-                        <option>Disabled</option>
+                    <select id="role" name="role" class="col-2 offset-1 form-control">
+                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
                     </select>
                 </div>
                 <div class="row">

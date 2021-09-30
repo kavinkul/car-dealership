@@ -1,6 +1,7 @@
 package com.sg.cardealership.controllers;
 
 import com.sg.cardealership.models.Make;
+import com.sg.cardealership.models.Role;
 import com.sg.cardealership.models.Special;
 import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
@@ -8,7 +9,9 @@ import com.sg.cardealership.service.AdminService;
 import com.sg.cardealership.service.AdminServiceInvalidDataException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -93,6 +96,8 @@ public class AdminController {
 
     @GetMapping("/AddUser")
     public String displayAddUser(Model model) {
+        List<String> roles = Arrays.asList(Role.values()).stream().map(r -> r.getValue()).collect(Collectors.toList());
+        model.addAttribute("roles", roles);
         return "adminAddUser";
     }
 
@@ -112,9 +117,27 @@ public class AdminController {
         return "redirect:/admin/Users";
     }
 
-    @GetMapping("/edituser")
-    public String displayEditUser(Model model) {
-        return "";
+    @GetMapping("/EditUser")
+    public String displayEditUser(HttpServletRequest request, Model model) {
+        String email = request.getParameter("email");
+        model.addAttribute("user", adminService.getUser(email));
+        List<String> roles = Arrays.asList(Role.values()).stream().map(r -> r.getValue()).collect(Collectors.toList());
+        model.addAttribute("roles", roles);
+        return "adminEditUser";
+    }
+
+    @PostMapping("/EditUser")
+    public String editUser(HttpServletRequest request) {
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String role = request.getParameter("role");
+        try {
+            adminService.editUser(firstName, lastName, email, role);
+        } catch (AdminServiceInvalidDataException | SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return "redirect:/admin/Users";
     }
 
     @GetMapping("adminSpecials")

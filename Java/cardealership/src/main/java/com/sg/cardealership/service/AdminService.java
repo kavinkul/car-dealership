@@ -69,13 +69,17 @@ public class AdminService {
     public void addSpecial(Special special){
         specialsDao.addSpecial(special);
     }
-    
+
     public void removeSpecial(int id){
         specialsDao.removeSpecial(id);
     }
 
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
+    }
+
+    public User getUser(String email) {
+        return userDao.getUser(email);
     }
 
     public void addUser(String firstName, String lastName, String email, String roleString, String password, String confirmPassword) throws AdminServiceInvalidDataException, SQLException {
@@ -89,5 +93,19 @@ public class AdminService {
         }
         User user = new User(email, firstName, lastName, password, role);
         userDao.addUser(user);
+    }
+
+    public void editUser(String firstName, String lastName, String email, String roleString) throws AdminServiceInvalidDataException, SQLException {
+        Role role;
+        try {
+            role = Role.valueOf(roleString.toUpperCase());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            throw new AdminServiceInvalidDataException("This role does not exist!");
+        }
+        User user = userDao.getUser(email);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setRole(role);
+        userDao.editUser(user);
     }
 }
