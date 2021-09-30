@@ -2,6 +2,7 @@ package com.sg.cardealership.controllers;
 
 import com.sg.cardealership.models.Make;
 import com.sg.cardealership.models.Special;
+import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
 import com.sg.cardealership.service.AdminService;
 import com.sg.cardealership.service.AdminServiceInvalidDataException;
@@ -85,26 +86,28 @@ public class AdminController {
 
     @GetMapping("/Users")
     public String displayUsers(Model model) {
-        return "";
+        List<User> allUsers = adminService.getAllUsers();
+        model.addAttribute("allUsers", allUsers);
+        return "adminUsers";
     }
 
-    @GetMapping("/adduser")
+    @GetMapping("/AddUser")
     public String displayAddUser(Model model) {
         return "adminAddUser";
     }
 
-    @PostMapping("/adduser")
+    @PostMapping("/AddUser")
     public String addUser(HttpServletRequest request) {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String role = request.getParameter("role");
         String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("Confirm Password");
+        String confirmPassword = request.getParameter("confirmPassword");
         try {
             adminService.addUser(firstName, lastName, email, role, password, confirmPassword);
         } catch (AdminServiceInvalidDataException | SQLException e) {
-
+            System.out.println(e.getMessage());
         }
         return "redirect:/admin/Users";
     }
@@ -128,7 +131,7 @@ public class AdminController {
 
         return "redirect:adminSpecials";
     }
-    
+
     @GetMapping("deleteSpecial")
     public String deleteStudent(Integer id) {
         adminService.removeSpecial(id);
