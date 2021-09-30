@@ -31,7 +31,7 @@
             <div class="card-body col-11"><a href="">Home</a> | 
                                    <a href="">New Inventory</a> | 
                                    <a href="">Used Inventory</a> | 
-                                   <a href="">Specials</a> | 
+                                   <a href="specials">Specials</a> | 
                                    <a href="">Contacts</a> | 
                                    <a href="">Sales</a> | 
                                    <a href="">Admin</a>
@@ -41,7 +41,7 @@
       <!-- ------------------------Page Header------------------------------ -->
         <h1>Specials</h1>
       <!-- ------------------------Specials Listings------------------------ -->
-      <!-- begin for each loop via thymelyfe to cycle through specials info- -->
+      <!-- begin for each loop via thymeleaf to cycle through specials info- -->
         <div id="currentSpecials" th:each="special : ${specials}">
             <div class="card">
                 <div class="card-body">
