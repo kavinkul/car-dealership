@@ -49,19 +49,11 @@
             <h1 class="mb-4">Featured Vehicles</h1>
             
             <div class="card-deck" style="max-width: 25rem;">
-                <div class="card">
+                <div th:each="vehicle : ${vehicles}" class="card">
                     <img class="card-img-top" th:src="@{/img/carPlaceholder.png}" />
                     <div class="card-body text-center">
                         <h5 class="card-title">2017 Make Model</h5>
-                        <p class="card-text">$12,000</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img class="card-img-top" th:src="@{/img/carPlaceholder.png}" />
-                    <div class="card-body text-center">
-                        <h5 class="card-title">2017 Make Model</h5>
-                        <p class="card-text">$12,000</p>
+                        <p class="card-text" th:text="${vehicle.salesPrice}">$12,000</p>
                     </div>
                 </div>
             </div>
