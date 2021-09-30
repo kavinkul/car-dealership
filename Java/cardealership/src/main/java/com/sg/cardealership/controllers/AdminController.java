@@ -111,4 +111,10 @@ public class AdminController {
         
         return "redirect:adminSpecials";
     }
+    
+    @GetMapping("deleteSpecial")
+    public String deleteStudent(Integer id) {
+        adminService.removeSpecial(id);
+        return "redirect:adminSpecials";
+    }
 }

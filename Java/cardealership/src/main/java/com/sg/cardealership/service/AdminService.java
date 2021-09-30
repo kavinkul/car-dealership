@@ -68,4 +68,8 @@ public class AdminService {
     public void addSpecial(Special special){
         specialsDao.addSpecial(special);
     }
+    
+    public void removeSpecial(int id){
+        specialsDao.removeSpecial(id);
+    }
 }
