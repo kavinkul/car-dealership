@@ -48,16 +48,16 @@
             
             <h1 class="mb-4">Featured Vehicles</h1>
             
-            <div class="card-deck" style="max-width: 25rem;">
+            <div class="card-deck" style="max-width: 15rem;">
                 <div th:each="vehicle : ${vehicles}" class="card">
                     <img class="card-img-top" th:src="@{/img/carPlaceholder.png}" />
                     <div class="card-body text-center">
-                        <h5 class="card-title">2017 Make Model</h5>
+                        <h5 class="card-title" th:text="${vehicle.model.year 
+                            + ' ' + vehicle.model.make.name + ' ' + vehicle.model.name}">2017 Make Model</h5>
                         <p class="card-text" th:text="${vehicle.salesPrice}">$12,000</p>
                     </div>
                 </div>
             </div>
-            
         </div>
         
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
