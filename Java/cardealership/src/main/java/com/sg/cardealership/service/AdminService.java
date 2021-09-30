@@ -74,12 +74,16 @@ public class AdminService {
         specialsDao.removeSpecial(id);
     }
 
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+
     public void addUser(String firstName, String lastName, String email, String roleString, String password, String confirmPassword) throws AdminServiceInvalidDataException, SQLException {
-        if (password != confirmPassword)
+        if (!password.equals(confirmPassword))
             throw new AdminServiceInvalidDataException("Passwords do not match!");
         Role role;
         try {
-            role = Role.valueOf(roleString);
+            role = Role.valueOf(roleString.toUpperCase());
         } catch (IllegalArgumentException | NullPointerException e) {
             throw new AdminServiceInvalidDataException("This role does not exist!");
         }
