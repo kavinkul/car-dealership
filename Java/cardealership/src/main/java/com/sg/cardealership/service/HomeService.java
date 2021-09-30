@@ -6,6 +6,7 @@ import com.sg.cardealership.dao.VehicleDao;
 import com.sg.cardealership.models.Special;
 import com.sg.cardealership.models.Vehicle;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,10 @@ public class HomeService {
     ContactDao contactDao;
     
     public List<Vehicle> getAllFeaturedVehicles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return vehicleDao.getAllVehicles()
+                         .stream()
+                         .filter(v -> v.isFeatured())
+                         .collect(Collectors.toList());
     }
     
     public List<Special> getAllSpecials() {

@@ -1,6 +1,7 @@
 package com.sg.cardealership.controllers;
 
 import com.sg.cardealership.models.Special;
+import com.sg.cardealership.models.Vehicle;
 import com.sg.cardealership.service.HomeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class HomeController {
     
     @GetMapping("/index")
     public String displayFeatured(Model model) {
+        List<Vehicle> featured = homeService.getAllFeaturedVehicles();
+        model.addAttribute("vehicles", featured);
         return "index";
     }
     
