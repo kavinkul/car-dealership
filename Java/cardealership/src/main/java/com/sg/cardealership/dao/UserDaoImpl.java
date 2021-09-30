@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserDaoImpl implements UserDao{
-    
+
     @Autowired
     JdbcTemplate jdbc;
 
@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao{
                 user.getLastName(),
                 user.getPasswordHash(),
                 user.getRole().getValue());
-        
+
         //String newEmail = jdbc.queryForObject("SELECT LAST_INSERT_ID()", String.class);
         //user.setEmail(newEmail);
         return user;
@@ -73,7 +73,7 @@ public class UserDaoImpl implements UserDao{
                 user.getLastName(),
                 user.getEmail());
     }
-    
+
     public static final class UserMapper implements RowMapper<User> {
 
         @Override
@@ -89,8 +89,11 @@ public class UserDaoImpl implements UserDao{
             else if(rs.getString("role").equalsIgnoreCase("sales")){
                 user.setRole(Role.SALES);
             }
+            else if(rs.getString("role").equalsIgnoreCase("disabled")){
+                user.setRole(Role.DISABLED);
+            }
             return user;
         }
     }
-    
+
 }

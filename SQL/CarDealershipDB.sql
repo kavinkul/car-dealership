@@ -17,7 +17,7 @@ CREATE TABLE `User` (
     FirstName VARCHAR(40) NOT NULL,
     LastName VARCHAR(40) NOT NULL,
     PasswordHash CHAR(64) NOT NULL,
-    `Role` ENUM('Sales', 'Admin')
+    `Role` ENUM('Sales', 'Admin', 'Disabled')
 );
 
 CREATE TABLE Make (
