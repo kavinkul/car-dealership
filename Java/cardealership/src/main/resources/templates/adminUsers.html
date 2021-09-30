@@ -29,7 +29,7 @@
                 </div>
             </div>
             <h2>Users</h2>
-            <a href="">Add a new User</a>
+            <a href="AddUser">Add a new User</a>
             <table class="table table-striped table-bordered col-12">
                 <thead>
                     <tr>
@@ -40,20 +40,13 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody th:each="user : ${allUsers}">
                     <tr>
-                        <td>Hill</td>
-                        <td>Austyn</td>
-                        <td>ahill@guildcars.com</td>
-                        <td>Sales</td>
-                        <td><a href="">edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>Hill</td>
-                        <td>Austyn</td>
-                        <td>ahill@guildcars.com</td>
-                        <td>Sales</td>
-                        <td><a href="">edit</a></td>
+                        <td th:text="${user.lastName}">Hill</td>
+                        <td th:text="${user.firstName}">Austyn</td>
+                        <td th:text="${user.email}">ahill@guildcars.com</td>
+                        <td th:text="${user.role}">Sales</td>
+                        <td><a href="@{/EditUser(id=${user.id})}">edit</a></td>
                     </tr>
                 </tbody>
             </table>
