@@ -1,6 +1,7 @@
 package com.sg.cardealership.controllers;
 
 import com.sg.cardealership.models.Make;
+import com.sg.cardealership.models.Special;
 import com.sg.cardealership.models.Vehicle;
 import com.sg.cardealership.service.AdminService;
 import com.sg.cardealership.service.AdminServiceInvalidDataException;
@@ -96,8 +97,18 @@ public class AdminController {
         return "";
     }
 
-    @GetMapping("/specials")
+    @GetMapping("adminSpecials")
     public String displaySpecials(Model model) {
-        return "";
+        List<Special> specials = adminService.getAllSpecials();
+        model.addAttribute("specials", specials);
+        return "adminSpecials";
+    }
+    
+    @PostMapping("addSpecial")
+    public String addSpecial(String specialTitle, String description) {
+        Special special = new Special(specialTitle, description);
+        adminService.addSpecial(special);
+        
+        return "redirect:adminSpecials";
     }
 }

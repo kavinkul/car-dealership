@@ -6,6 +6,7 @@ import com.sg.cardealership.dao.VehicleDao;
 import com.sg.cardealership.models.Make;
 import com.sg.cardealership.models.Model;
 import com.sg.cardealership.models.Role;
+import com.sg.cardealership.models.Special;
 import com.sg.cardealership.models.Vehicle;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -58,5 +59,13 @@ public class AdminService {
 
     public List<Model> getAllModels() {
         return vehicleDao.getAllModels();
+    }
+    
+    public List<Special> getAllSpecials() {
+        return specialsDao.getAllSpecials();
+    }
+    
+    public void addSpecial(Special special){
+        specialsDao.addSpecial(special);
     }
 }
