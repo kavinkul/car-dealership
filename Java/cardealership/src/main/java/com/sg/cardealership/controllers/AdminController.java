@@ -57,11 +57,6 @@ public class AdminController {
         return "redirect:/admin/Makes";
     }
 
-    @GetMapping("/users")
-    public String displayUsers(Model model) {
-        return "";
-    }
-
     @GetMapping("/Models")
     public String displayModels(Model model) {
         List<com.sg.cardealership.models.Model> carModelList = adminService.getAllModels();
@@ -87,9 +82,30 @@ public class AdminController {
         return "redirect:/admin/Models";
     }
 
+    @GetMapping("/Users")
+    public String displayUsers(Model model) {
+        return "";
+    }
+
     @GetMapping("/adduser")
     public String displayAddUser(Model model) {
-        return "";
+        return "adminAddUser";
+    }
+
+    @PostMapping("/adduser")
+    public String addUser(HttpServletRequest request) {
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String role = request.getParameter("role");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("Confirm Password");
+        try {
+            adminService.addUser(firstName, lastName, email, role, password, confirmPassword);
+        } catch (AdminServiceInvalidDataException | SQLException e) {
+
+        }
+        return "redirect:/admin/Users";
     }
 
     @GetMapping("/edituser")
@@ -103,12 +119,12 @@ public class AdminController {
         model.addAttribute("specials", specials);
         return "adminSpecials";
     }
-    
+
     @PostMapping("addSpecial")
     public String addSpecial(String specialTitle, String description) {
         Special special = new Special(specialTitle, description);
         adminService.addSpecial(special);
-        
+
         return "redirect:adminSpecials";
     }
     

@@ -7,6 +7,7 @@ import com.sg.cardealership.models.Make;
 import com.sg.cardealership.models.Model;
 import com.sg.cardealership.models.Role;
 import com.sg.cardealership.models.Special;
+import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -60,16 +61,29 @@ public class AdminService {
     public List<Model> getAllModels() {
         return vehicleDao.getAllModels();
     }
-    
+
     public List<Special> getAllSpecials() {
         return specialsDao.getAllSpecials();
     }
-    
+
     public void addSpecial(Special special){
         specialsDao.addSpecial(special);
     }
     
     public void removeSpecial(int id){
         specialsDao.removeSpecial(id);
+    }
+
+    public void addUser(String firstName, String lastName, String email, String roleString, String password, String confirmPassword) throws AdminServiceInvalidDataException, SQLException {
+        if (password != confirmPassword)
+            throw new AdminServiceInvalidDataException("Passwords do not match!");
+        Role role;
+        try {
+            role = Role.valueOf(roleString);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            throw new AdminServiceInvalidDataException("This role does not exist!");
+        }
+        User user = new User(email, firstName, lastName, password, role);
+        userDao.addUser(user);
     }
 }
