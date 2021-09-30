@@ -206,7 +206,7 @@ public class VehicleDaoImpl implements VehicleDao {
                     model.getName(),
                     model.getYear(),
                     model.getDateAdded(),
-                    model.getUser(),
+                    model.getUserEmail(),
                     model.getMake().getId());
 
         int modelId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
