@@ -29,24 +29,25 @@
                 </div>
             </div>
             <h2>Add User</h2>
-            <form>
+            <form action="AddUser" method="POST">
                 <div class="row">
                     <label for="firstName" class="col-4 col-form-label font-weight-bold">First Name</label>
                     <label for="lastName" class="col-4 offset-1 col-form-label font-weight-bold">Last Name</label>
                 </div>
                 <div class="row">
-                    <input type="text" name="firstName" id="firstName" class="col-4 form-control" placeholder=""/>
-                    <input type="text" name="lastName" id="lastName" class="col-4 offset-1 form-control" placeholder=""/>
+                    <input type="text" name="firstName" id="firstName" class="col-4 form-control" required>
+                    <input type="text" name="lastName" id="lastName" class="col-4 offset-1 form-control" required>
                 </div>
                 <div class="row">
                     <label for="email" class="col-4 col-form-label font-weight-bold">Email</label>
                     <label for="role" class="col-4 offset-1 col-form-label font-weight-bold">Role</label>
                 </div>
                 <div class="row">
-                    <input type="text" name="email" id="email" class="col-4 form-control" placeholder=""/>
+                    <input type="text" name="email" id="email" class="col-4 form-control" required>
                     <select id="bodyStyle" name="bodyStyle" class="col-1 offset-1 form-control">
                         <option>Admin</option>
                         <option>Sales</option>
+                        <option>Disabled</option>
                     </select>
                 </div>
                 <div class="row">
@@ -54,11 +55,11 @@
                     <label for="confirmPassword" class="col-4 offset-1 col-form-label font-weight-bold">Confirm Password</label>
                 </div>
                 <div class="row">
-                    <input type="password" name="password" id="password" class="col-4 form-control" placeholder=""/>
-                    <input type="password" name="confirmPassword" id="confirmPassword" class="col-4 offset-1 form-control" placeholder=""/>
+                    <input type="password" name="password" id="password" class="col-4 form-control" required>
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="col-4 offset-1 form-control" required>
                 </div>
                 <div class="row" style="margin-top: 1em; margin-bottom: 1em;">
-                    <a href="#" class="col-1 btn btn-success" style="">Save</a>
+                    <button class="col-1 btn btn-success" type="submit">Save</a>
                 </div>
             </form>
         </div>
