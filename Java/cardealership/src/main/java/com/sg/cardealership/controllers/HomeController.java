@@ -15,7 +15,7 @@ public class HomeController {
     
     @GetMapping("/index")
     public String displayFeatured(Model model) {
-        return "";
+        return "index";
     }
     
     @GetMapping("/specials")
