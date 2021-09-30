@@ -31,19 +31,24 @@
             <h2>Models</h2>
             <div class="card">
                 <div class="card-body">
-                    <form>
+                    <form action="Models" method="POST">
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-4">
                                 <div class="row">
-                                <label for="newModel" class="col-4 col-form-label font-weight-bold text-right">New Model</label>
-                                <input type="text" name="newModel" id="newModel" class="col-8 form-control" placeholder=""/>
+                                    <label for="newModel" class="col-4 col-form-label font-weight-bold text-right">New Model</label>
+                                    <input type="text" name="newModel" id="newModel" class="col-8 form-control" required>
+                                    <input type="hidden" name="userEmail" id="userEmail" class="form-control" value="JG@gmail.com" required>
                                 </div>
                             </div>
+                            <label for="year" class="col-1 col-form-label font-weight-bold text-right">Year</label>
+                            <input type="integer" name="year" id="year" class="col-1 form-control" required>
                             <label for="make" class="col-1 col-form-label font-weight-bold text-right">Make</label>
                             <select id="make" name="make" class="col-3 form-control">
-                                <option>Audi</option>
+                                <div th:each="make : ${allMakes}">
+                                    <option th:text="${make.name}">Audi</option>
+                                </div>
                             </select>
-                            <a href="#" class="col-1 offset-1 btn btn-success" style="">Save</a>
+                            <button class="col-1 btn btn-success ml-5" type="submit">Save</button>
                         </div>
                     </form>
                 </div>
@@ -57,18 +62,12 @@
                         <th>User</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody th:each="model : ${allModels}">
                     <tr>
-                        <td>Audi</td>
-                        <td>A4</td>
-                        <td>1/1/2016</td>
-                        <td>ewise@guildcars.com</td>
-                    </tr>
-                    <tr>
-                        <td>Audi</td>
-                        <td>A6</td>
-                        <td>1/1/2016</td>
-                        <td>ewise@guildcars.com</td>
+                        <td th:text="${model.make.name}">Audi</td>
+                        <td th:text="${model.name}">A4</td>
+                        <td th:text="${model.dateAdded}">1/1/2016</td>
+                        <td th:text="${model.userEmail}">ewise@guildcars.com</td>
                     </tr>
                 </tbody>
             </table>

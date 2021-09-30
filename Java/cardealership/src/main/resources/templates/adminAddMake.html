@@ -31,15 +31,16 @@
             <h2>Makes</h2>
             <div class="card">
                 <div class="card-body">
-                    <form>
+                    <form action="Makes" method="POST">
                         <div class="row">
                             <div class="col-5">
                                 <div class="row">
-                                <label for="newMake" class="col-3 col-form-label font-weight-bold text-right">New Make</label>
-                                <input type="text" name="newMake" id="newMake" class="col-8 form-control" placeholder=""/>
+                                    <label for="newMake" class="col-3 col-form-label font-weight-bold text-right">New Make</label>
+                                    <input type="text" name="newMake" id="newMake" class="col-8 form-control" required>
+                                    <input type="hidden" name="userEmail" id="userEmail" class="form-control" value="JG@gmail.com" required>
                                 </div>
                             </div>
-                            <a href="#" class="col-1 btn btn-success" style="">Save</a>
+                            <button type="submit" class="col-1 btn btn-success">Save</button>
                         </div>
                     </form>
                 </div>

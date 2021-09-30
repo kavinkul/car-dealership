@@ -39,7 +39,7 @@ public class Model {
         return dateAdded;
     }
 
-    public String getUser() {
+    public String getUserEmail() {
         return userEmail;
     }
 
