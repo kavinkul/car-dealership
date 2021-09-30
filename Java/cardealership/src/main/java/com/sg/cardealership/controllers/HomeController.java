@@ -16,7 +16,7 @@ public class HomeController {
     @Autowired
     HomeService homeService;
     
-    @GetMapping("/index")
+    @GetMapping
     public String displayFeatured(Model model) {
         List<Vehicle> featured = homeService.getAllFeaturedVehicles();
         model.addAttribute("vehicles", featured);
