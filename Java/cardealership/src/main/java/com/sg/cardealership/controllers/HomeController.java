@@ -1,6 +1,9 @@
 package com.sg.cardealership.controllers;
 
+import com.sg.cardealership.models.Special;
+import com.sg.cardealership.models.Vehicle;
 import com.sg.cardealership.service.HomeService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +16,18 @@ public class HomeController {
     @Autowired
     HomeService homeService;
     
-    @GetMapping("/index")
+    @GetMapping
     public String displayFeatured(Model model) {
-        return "";
+        List<Vehicle> featured = homeService.getAllFeaturedVehicles();
+        model.addAttribute("vehicles", featured);
+        return "index";
     }
     
     @GetMapping("/specials")
     public String displaySpecials(Model model) {
-        return "";
+        List<Special> specials = homeService.getAllSpecials();
+        model.addAttribute("specials", specials);
+        return "specials";
     }
     
     @GetMapping("/contact")

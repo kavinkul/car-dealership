@@ -9,12 +9,54 @@
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
               integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
               crossorigin="anonymous" />
+        
+        <style>
+            .jumbotron {
+                background-image: url("../img/featuredBanner.png");
+                -webkit-background-size: 100% 100%;
+                -moz-background-size: 100% 100%;
+                -o-background-size: 100% 100%;
+                background-size: 100% 100%;
+            }
+        </style>
 
-        <title>Admin Specials</title>
+        <title>Featured Vehicles</title>
     </head>
     <body>
-        
-        
+        <div class="container">
+            
+            <!-- Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <img class="navbar-brand" th:src="@{/img/carPlaceholder.png}" width="30" height="30" />
+                
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Home</a>
+                    <a class="nav-item nav-link" href="#">New Inventory</a>
+                    <a class="nav-item nav-link" href="#">Used Inventory</a>
+                    <a class="nav-item nav-link" href="specials">Specials</a>
+                    <a class="nav-item nav-link" href="#">Contacts</a>
+                    <a class="nav-item nav-link" href="#">Sales</a>
+                    <a class="nav-item nav-link" href="#">Admin</a>
+                </div>
+            </nav> 
+            
+            <div class="jumbotron">
+                <h1 class="text-center text-warning">BIG HUGE SALE!!!</h1>
+            </div>
+            
+            <hr class="my-4" />
+            
+            <h1>Featured Vehicles</h1>
+            
+            <div class="card" style="width: 12rem;">
+                <img class="card-img-top" th:src="@{/img/carPlaceholder.png}" />
+                <div class="card-body text-center">
+                    <h5 class="card-title">2017 Make Model</h5>
+                    <p class="card-text">$12,000</p>
+                </div>
+            </div>
+            
+        </div>
         
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
