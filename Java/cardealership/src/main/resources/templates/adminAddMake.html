@@ -52,16 +52,11 @@
                         <th>User</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody th:each="make : ${allMakes}">
                     <tr>
-                        <td>Audi</td>
-                        <td>1/1/2016</td>
-                        <td>ewise@guildcars.com</td>
-                    </tr>
-                    <tr>
-                        <td>Audi</td>
-                        <td>1/1/2016</td>
-                        <td>ewise@guildcars.com</td>
+                        <td th:text="${make.name}">Audi</td>
+                        <td th:text="${make.dateAdded}">1/1/2016</td>
+                        <td th:text="${make.userEmail}">ewise@guildcars.com</td>
                     </tr>
                 </tbody>
             </table>

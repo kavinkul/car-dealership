@@ -48,11 +48,11 @@ public class Make {
         this.dateAdded = dateAdded;
     }
 
-    public String getUser() {
+    public String getUserEmail() {
         return userEmail;
     }
 
-    public void setUser(String userEmail) {
+    public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
 
@@ -98,5 +98,5 @@ public class Make {
         return "Make{" + "id=" + id + ", name=" + name + ", dateAdded=" + dateAdded + ", userEmail=" + userEmail + '}';
     }
 
-    
+
 }
