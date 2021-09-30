@@ -29,36 +29,27 @@
                 </div>
             </div>
             <h2>Edit User</h2>
-            <form>
+            <form action="EditUser" method="POST">
                 <div class="row">
                     <label for="firstName" class="col-4 col-form-label font-weight-bold">First Name</label>
                     <label for="lastName" class="col-4 offset-1 col-form-label font-weight-bold">Last Name</label>
                 </div>
                 <div class="row">
-                    <input type="text" name="firstName" id="firstName" class="col-4 form-control" placeholder=""/>
-                    <input type="text" name="lastName" id="lastName" class="col-4 offset-1 form-control" placeholder=""/>
+                    <input th:value="${user.firstName}" type="text" name="firstName" id="firstName" class="col-4 form-control" required>
+                    <input th:value="${user.lastName}" type="text" name="lastName" id="lastName" class="col-4 offset-1 form-control" required>
                 </div>
                 <div class="row">
                     <label for="email" class="col-4 col-form-label font-weight-bold">Email</label>
                     <label for="role" class="col-4 offset-1 col-form-label font-weight-bold">Role</label>
                 </div>
                 <div class="row">
-                    <input type="text" name="email" id="email" class="col-4 form-control" placeholder=""/>
-                    <select id="bodyStyle" name="bodyStyle" class="col-1 offset-1 form-control">
-                        <option>Admin</option>
-                        <option>Sales</option>
+                    <input th:value="${user.email}" type="text" name="email" id="email" class="col-4 form-control" readonly>
+                    <select id="role" name="role" class="col-2 offset-1 form-control">
+                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}" th:selected="${role==user.role.getValue()}"></option>
                     </select>
                 </div>
-                <div class="row">
-                    <label for="password" class="col-4 col-form-label font-weight-bold">Password</label>
-                    <label for="confirmPassword" class="col-4 offset-1 col-form-label font-weight-bold">Confirm Password</label>
-                </div>
-                <div class="row">
-                    <input type="password" name="password" id="password" class="col-4 form-control" placeholder=""/>
-                    <input type="password" name="confirmPassword" id="confirmPassword" class="col-4 offset-1 form-control" placeholder=""/>
-                </div>
                 <div class="row" style="margin-top: 1em; margin-bottom: 1em;">
-                    <a href="#" class="col-1 btn btn-success" style="">Save</a>
+                    <button href="#" class="col-1 btn btn-success" type="submit">Save</a>
                 </div>
             </form>
         </div>
