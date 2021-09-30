@@ -29,17 +29,19 @@
     <div class="container">
       
       <!-- ------------------------Menu Bar--------------------------------- -->  
-        <div class="col m-2 card card-img-left">
-            <img class="col-1" src="img/carPlaceholder.png"/>
-            <div class="card-body col-11"><a href="">Home</a> | 
-                                   <a href="">New Inventory</a> | 
-                                   <a href="">Used Inventory</a> | 
-                                   <a href="specials">Specials</a> | 
-                                   <a href="">Contacts</a> | 
-                                   <a href="">Sales</a> | 
-                                   <a href="">Admin</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <img class="navbar-brand" th:src="@{/img/carPlaceholder.png}" width="30" height="30" />
+
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Home</a>
+                <a class="nav-item nav-link" href="#">New Inventory</a>
+                <a class="nav-item nav-link" href="#">Used Inventory</a>
+                <a class="nav-item nav-link" href="specials">Specials</a>
+                <a class="nav-item nav-link" href="#">Contacts</a>
+                <a class="nav-item nav-link" href="#">Sales</a>
+                <a class="nav-item nav-link" href="#">Admin</a>
             </div>
-        </div>
+        </nav>
       
       <!-- ------------------------Page Header------------------------------ -->
         <h1>Specials</h1>
@@ -51,7 +53,7 @@
 
                     <form action="addSpecial" method="POST">
                         <div class="form-group row">
-                            <label for="specialTitle" 
+                            <label for="title" 
                                    class="col-2 col-form-label font-weight-bold">
                                 Title
                             </label>
@@ -63,7 +65,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="specialDescription" 
+                            <label for="description" 
                                    class="col-2 col-form-label font-weight-bold">
                                 Description
                             </label>
@@ -76,12 +78,18 @@
                                 </textarea>
                             </div>
                         </div>
+                        <button type="submit" 
+                                        class="btn btn-primary">
+                                    Save
+                                </button>
                         <div class="row col-4">   
                             <div class="col-2">
+                                <!--
                                 <button type="submit" 
                                         class="btn btn-primary">
                                     Save
                                 </button>
+                                -->
                             </div>
                         </div>
                     </form>
@@ -99,13 +107,13 @@
 
                       <!-- display contents of specials objects received from database -->  
                         <div class="col-1">
-                            <img style="width: 50px; height: 50px;" src="img/carPlaceholder.png"/>
+                            <img style="width: 50px; height: 50px;" th:src="@{/img/carPlaceholder.png}"//>
                         </div>
                         <div class="col-11">
                             <div class="row">
                                 <h5 class="col-10 card-title" th:text="${special.title}">Special Title</h5>
                                 <a href="#" class="col-1 btn btn-danger" 
-                                   th:href="@{/deleteSpecial(id=${special.specialId})}">Delete</a>
+                                   th:href="@{/deleteSpecial(id=${special.id})}">Delete</a>
                             </div>    
                             <div class="row">
                                 <div id="descriptionDiv" class="col-12"
