@@ -19,6 +19,7 @@ function saveVehicle() {
                 color: $('#color').val(),
                 interior: $('#interior').val(),
                 mileage: $('#mileage').val(),
+                trans: $('#transmission').val(),
                 msrp: $('#msrp').val(),
                 salePrice: $('#salePrice').val(),
                 description: $('#description').val(),
