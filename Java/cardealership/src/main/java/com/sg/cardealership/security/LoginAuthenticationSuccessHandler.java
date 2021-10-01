@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.cardealership;
+package com.sg.cardealership.security;
 
 import java.io.IOException;
 import java.util.Collection;

@@ -45,10 +45,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/home/contact">Contacts</a>
                     </li>
-                    <li class="nav-item">
+                    <li sec:authorize="hasAuthority('Sales')" class="nav-item">
                         <a class="nav-item nav-link" href="/sales">Sales</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li sec:authorize="hasAuthority('Admin')" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Admin</a>
                         <ul class="dropdown-menu">
                             <li>
