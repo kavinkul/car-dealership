@@ -60,7 +60,7 @@ public class AdminController {
         try {
             adminService.addMake(makeName, email);
         } catch (SQLException | AdminServiceInvalidDataException e) {
-
+            // This should have errors handling. Not implemented.
         }
         return "redirect:/admin/Makes";
     }
@@ -82,10 +82,7 @@ public class AdminController {
         try {
             adminService.addModel(makeName, modelName, year, email);
         } catch (SQLException | AdminServiceInvalidDataException e) {
-            System.out.println(makeName);
-            System.out.println(modelName);
-            System.out.println(year);
-            System.out.println(email);
+            // This should have errors handling. Not implemented.
         }
         return "redirect:/admin/Models";
     }
@@ -115,7 +112,7 @@ public class AdminController {
         try {
             adminService.addUser(firstName, lastName, email, role, password, confirmPassword);
         } catch (AdminServiceInvalidDataException | SQLException e) {
-            System.out.println(e.getMessage());
+            // This should have errors handling. Not implemented.
         }
         return "redirect:/admin/Users";
     }
@@ -131,14 +128,22 @@ public class AdminController {
 
     @PostMapping("/EditUser")
     public String editUser(HttpServletRequest request) {
+        String adminEmail = request.getParameter("adminEmail");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String role = request.getParameter("role");
+
+        // Admins are not allowed to edit themselves for whatever reason.
+
+        if (adminEmail.equals(email)) {
+            return "redirect:/admin/Users";
+        }
+
         try {
             adminService.editUser(firstName, lastName, email, role);
         } catch (AdminServiceInvalidDataException | SQLException e) {
-            System.out.println(e.getMessage());
+            // This should have errors handling. Not implemented.
         }
         return "redirect:/admin/Users";
     }

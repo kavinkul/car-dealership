@@ -40,6 +40,9 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+    // Using a simple SHA-256 for hashing for demonstration purposes.
+    // Should use different hashing algorithms.
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new MessageDigestPasswordEncoder("SHA-256");
@@ -61,18 +64,21 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .csrf()
             .disable()
             .authorizeRequests()
-            .antMatchers("/", "/home/**", "/inventory/**", "/img/**", "/js/**", "/api/**").permitAll()
-            .antMatchers("/admin/**").access("hasAuthority('Admin')")
-            .antMatchers("/sales/**").access("hasAuthority('Sales')")
+
+            // Set access authorization.
+
+            .antMatchers("/", "/home/**", "/inventory/**", "/img/**", "/js/**", "/api/**").permitAll() // Permit anyone viewing these pages
+            .antMatchers("/admin/**").access("hasAuthority('Admin')") // Only admin can view these pages
+            .antMatchers("/sales/**").access("hasAuthority('Sales')") // Only sales can view these pages
             .anyRequest()
             .authenticated()
             .and()
             .formLogin()
-			.loginPage("/account/login")
-            .successHandler(customAuthenticationSuccessHandler())
+			.loginPage("/account/login") // Allow anyone to login. The login in link will not be accessible through UI on main pages.
+            .successHandler(customAuthenticationSuccessHandler()) // Allow for different redirects for different authorization.
 			.permitAll()
             .and()
-            .logout()
+            .logout() // Logout. Default page is /logout
             .logoutSuccessUrl("/home");
     }
 }

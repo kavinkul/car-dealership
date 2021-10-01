@@ -47,8 +47,12 @@ public class SalesDaoImpl implements SalesDao {
        return allSales;
     }
 
+    // Takes advantage of vehicle dao to get Vehicle object with matching VIN
+
     @Override
     public Sale getSale(User user) {
+        // Query all VIN with specific userEmail equals to user's
+
         final String SELECT_ALL_SALES_FROM_USER = "SELECT VIN FROM Sales "
                 + "WHERE UserEmail = ?";
 
@@ -71,6 +75,8 @@ public class SalesDaoImpl implements SalesDao {
                 user.getEmail(),
                 vehicle.getVIN());
     }
+
+    // Only used in unit testing
 
     @Override
     @Transactional

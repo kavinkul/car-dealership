@@ -41,6 +41,11 @@ public class SalesDaoImplTest {
     @Autowired
     SalesDao salesDao;
 
+    /*
+     * Cleaning up the test database starting from the table that has no foreign key
+     * pointing to it.
+     */
+
     @BeforeEach
     public void setUp() {
         List<Sale> allSales = salesDao.getAllSales();

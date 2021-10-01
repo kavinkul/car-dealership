@@ -38,6 +38,10 @@ public class AdminService {
 
     public void addMake(String name, String email) throws AdminServiceInvalidDataException, SQLException {
         Make make = new Make(name, LocalDate.now(), email);
+
+        // A check to ensure that the user is an admin even though other users cannot access
+        // this page in the first place.
+
         if (userDao.getUser(email).getRole() != Role.ADMIN)
             throw new AdminServiceInvalidDataException("User is not admin.");
         vehicleDao.addMake(make);
@@ -50,8 +54,15 @@ public class AdminService {
     public void addModel(String makeName, String modelName, int year, String email) throws AdminServiceInvalidDataException, SQLException {
         Make make = vehicleDao.getAllMakes().stream().filter((m) -> m.getName().equalsIgnoreCase(makeName)).collect(Collectors.toList()).get(0);
         LocalDate todayDate = LocalDate.now();
+
+        // Business logic : ensure that the model year is between 2000 and this year + 1 inclusive
+
         if (year < 2000 || year > todayDate.getYear() + 1)
             throw new AdminServiceInvalidDataException("Year is not in between 2000 and next year.");
+
+        // A check to ensure that the user is an admin even though other users cannot access
+        // this page in the first place.
+
         if (userDao.getUser(email).getRole() != Role.ADMIN)
             throw new AdminServiceInvalidDataException("User is not admin.");
         Model model = new Model(modelName, year, todayDate, email, make);
@@ -86,6 +97,9 @@ public class AdminService {
         if (!password.equals(confirmPassword))
             throw new AdminServiceInvalidDataException("Passwords do not match!");
         Role role;
+
+        // Making sure that the retrieve role string matches one of the role.
+
         try {
             role = Role.valueOf(roleString.toUpperCase());
         } catch (IllegalArgumentException | NullPointerException e) {
@@ -97,6 +111,9 @@ public class AdminService {
 
     public void editUser(String firstName, String lastName, String email, String roleString) throws AdminServiceInvalidDataException, SQLException {
         Role role;
+        
+        // Making sure that the retrieve role string matches one of the role.
+
         try {
             role = Role.valueOf(roleString.toUpperCase());
         } catch (IllegalArgumentException | NullPointerException e) {
