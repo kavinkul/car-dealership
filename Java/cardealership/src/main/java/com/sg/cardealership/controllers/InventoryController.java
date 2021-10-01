@@ -1,6 +1,8 @@
 package com.sg.cardealership.controllers;
 
+import com.sg.cardealership.models.Vehicle;
 import com.sg.cardealership.service.InventoryService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,11 @@ public class InventoryController {
 
     @GetMapping("/new")
     public String displayNewVehicles(Model model) {
-       return ""; 
+        /*
+       List<Vehicle> newVehicles = invService.getNewVehicles();
+        model.addAttribute("new", newVehicles);
+        */
+        return "new"; 
     }
     
     @GetMapping("/used")
