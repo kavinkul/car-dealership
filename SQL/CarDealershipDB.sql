@@ -84,8 +84,11 @@ CREATE TABLE SALES (
     CONSTRAINT FK_VIN FOREIGN KEY (VIN) REFERENCES Vehicle(VIN)
 );
 
-INSERT INTO `User` VALUES("JG@gmail.com", "Jack", "Gram", "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd", "Admin");
-INSERT INTO `User` VALUES("emilywiill@hotmail.com", "Emily", "Willes", "559aead08264d5795d3909718cdd05abd49572e84fe55590eef31a88a08fdffd", "Sales");
+-- SHA 256
+-- hello
+INSERT INTO `User` VALUES("JG@gmail.com", "Jack", "Gram", "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824", "Admin");
+-- password
+INSERT INTO `User` VALUES("emilywiill@hotmail.com", "Emily", "Willes", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "Sales");
 
 INSERT INTO `Trim`(`Name`, InteriorColor, ExteriorColor, Transmission) VALUES ("Trim 1", "light golden rod yellow", "red", "Automatic");
 INSERT INTO `Trim`(`Name`, InteriorColor, ExteriorColor, Transmission) VALUES ("Trim 2", "blue", "light golden rod yellow", "Manual");

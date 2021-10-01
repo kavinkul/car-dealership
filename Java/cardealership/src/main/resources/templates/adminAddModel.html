@@ -37,7 +37,7 @@
                                 <div class="row">
                                     <label for="newModel" class="col-4 col-form-label font-weight-bold text-right">New Model</label>
                                     <input type="text" name="newModel" id="newModel" class="col-8 form-control" required>
-                                    <input type="hidden" name="userEmail" id="userEmail" class="form-control" value="JG@gmail.com" required>
+                                    <input type="hidden" name="userEmail" id="userEmail" class="form-control" th:value="${#authentication.name}" required>
                                 </div>
                             </div>
                             <label for="year" class="col-1 col-form-label font-weight-bold text-right">Year</label>
