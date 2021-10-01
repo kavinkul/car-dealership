@@ -29,8 +29,7 @@ public class AdminController {
 
     @GetMapping("/vehicles")
     public String displayVehicles(Model model) {
-        List<Vehicle> allVehicles = adminService.getAllVehicles();
-        return "";
+        return "adminVehicles";
     }
 
     @GetMapping("/addvehicle")
