@@ -108,4 +108,10 @@ public class AdminService {
         user.setRole(role);
         userDao.editUser(user);
     }
+
+    public void editPassword(String email, String passwordHash) throws SQLException {
+        User user = userDao.getUser(email);
+        user.setPasswordHash(passwordHash);
+        userDao.editUser(user);
+    }
 }
