@@ -28,7 +28,7 @@ public class InventoryService {
                 .collect(Collectors.toList());
     }
     
-    public Vehicle getVehicle(int vin) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Vehicle getVehicle(String vin) {
+        return vehicleDao.getVehicle(vin);
     }
 }

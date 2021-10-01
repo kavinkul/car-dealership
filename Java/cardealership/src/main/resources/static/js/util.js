@@ -24,7 +24,7 @@ function handleVehicles(vehicleArray) {
         row += tableEntry('Body Style', vehicle.bodyStyle);
         row += tableEntry('Trans', vehicle.trim.transmission);
         row += tableEntry('Color', vehicle.trim.exteriorColor);
-        row += '</div>'
+        row += '</div>';
         
         // InteriorColor, Mileage, VIN
         row += '<div class="col-3">';
@@ -32,13 +32,18 @@ function handleVehicles(vehicleArray) {
         row += tableEntry('Mileage', vehicle.vehicleCondition.mileage 
                 + ' ' + vehicle.vehicleCondition.unit);
         row += tableEntry('VIN #', vehicle.vin);
-        row += '</div>'
+        row += '</div>';
         
         // SalesPrice, MSRP
         row += '<div class="col-3">';
         row += tableEntry('Sale Price', '$ ' + vehicle.salesPrice);
         row += tableEntry('MSRP', '$ ' + vehicle.msrp);
-        row += '</div>'
+        row += '<div class="row justify-content-center">';
+        row += '<button  type="button" onclick="showVehicleDetailDiv" id="detailButton" \n\
+                        class="btn btn-primary pull-right">Details';
+        row += '</button>';
+        row += '</div>';
+        row += '</div>';
         
         row += '</div>';
         
@@ -60,3 +65,21 @@ function tableEntry(title, value) {
 }
 
 
+
+function detailButtonListener() {
+
+    $('#detailButton').click(function(event) {
+
+      //$('#errorMessagesMain').empty();
+	    
+      var vin = $('#vin').val();
+	    
+      vehicleDetail(vin);
+      }
+    );
+}
+
+function showVehicleDetailDiv(){
+    $('#searchResult').hide();
+    $('#vehicleDetail').show();
+}
