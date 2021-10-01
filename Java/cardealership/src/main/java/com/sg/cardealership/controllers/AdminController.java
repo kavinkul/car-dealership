@@ -3,6 +3,8 @@ package com.sg.cardealership.controllers;
 import com.sg.cardealership.models.Make;
 import com.sg.cardealership.models.Role;
 import com.sg.cardealership.models.Special;
+import com.sg.cardealership.models.Transmission;
+import com.sg.cardealership.models.Type;
 import com.sg.cardealership.models.User;
 import com.sg.cardealership.models.Vehicle;
 import com.sg.cardealership.service.AdminService;
@@ -34,7 +36,12 @@ public class AdminController {
 
     @GetMapping("/addvehicle")
     public String displayAddVehicle(Model model) {
-       return "";
+        model.addAttribute("makeList", adminService.getAllMakes());
+        model.addAttribute("modelList", adminService.getAllModels());
+        model.addAttribute("typeList", Arrays.asList(Type.values()));
+        model.addAttribute("transList", Arrays.asList(Transmission.values()));
+
+        return "adminAddVehicle";
     }
 
     @GetMapping("/editvehicle/{1}")

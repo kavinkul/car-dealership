@@ -1,92 +1,125 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <title>Adding Vehicle</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-        <title>Course Manager</title>
-        <style>
-            .card {
-                border: 3px solid rgba(0, 0, 0, 0.5);
-            }
-            .card-img-left {
-                flex-direction: row;
-            }
-        </style>
+        <link rel="stylesheet" 
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+              crossorigin="anonymous" />
     </head>
     <body>
-        <!-- Main Body of Page -->
-
         <div class="container"> 
-            <div class="card">
-                <div class="row">
-                    <img class="col-1" src="img/carPlaceholder.png"/>
-                    <div class="card-body col-11"><a href="">Home</a> | <a href="">New Inventory</a> | <a href="">Used Inventory</a> | <a href="">Specials</a> | <a href="">Contacts</a> | <a href="">Sales</a> | <a href="">Admin</a></div>
-                </div>
-            </div>
+
+             <!-- Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <img class="navbar-brand" th:src="@{/img/carPlaceholder.png}" width="30" height="30" />
+                
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/inventory/new">New Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/inventory/used">Used Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home/specials">Specials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home/contact">Contacts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="/sales">Sales</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#">Admin</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="/admin/vehicles">Vehicles</a>
+                                <a class="dropdown-item" href="/admin/Users">Users</a>
+                                <a class="dropdown-item" href="/admin/Makes">Makes</a>
+                                <a class="dropdown-item" href="/admin/Models">Models</a>
+                                <a class="dropdown-item" href="/admin/adminSpecials">Specials</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            
             <h2>Add Vehicle</h2>
+            
             <form>
                 <div class="row">
                     <label for="make" class="col-4 col-form-label font-weight-bold">Make</label>
                     <label for="model" class="col-4 offset-1 col-form-label font-weight-bold">Model</label>
                 </div>
+                
+                <!-- Make & Model -->
                 <div class="row">
+                    <!-- Make -->
                     <select id="make" name="make" class="col-4 form-control">
-                        <option>Audi</option>
+                        <option th:each="make : ${makeList}" 
+                                th:text="${make.name}">
+                            Audi
+                        </option>
                     </select>
+                    
+                    <!-- Model -->
                     <select id="model" name="model" class="col-4 offset-1 form-control">
-                        <option>A4</option>
+                        <option th:each="model : ${modelList}" 
+                                th:text="${model.name + ' ' + model.year}">
+                            A4
+                        </option>
                     </select>
                 </div>
                 <div class="row">
                     <label for="type" class="col-4 col-form-label font-weight-bold">Type</label>
                     <label for="bodyStyle" class="col-4 offset-1 col-form-label font-weight-bold">Body Style</label>
                 </div>
+                
+                <!-- Type & BodyStyle -->
                 <div class="row">
                     <select id="type" name="type" class="col-4 form-control">
-                        <option>New</option>
+                        <option th:each="type : ${typeList}" th:text="${type}">
+                            New
+                        </option>
                     </select>
-                    <select id="bodyStyle" name="bodyStyle" class="col-4 offset-1 form-control">
-                        <option>Car</option>
+                    <input type="text" name="bodyStyle" id="bodyStyle" class="col-4 offset-1 form-control" placeholder="" />
+                </div>
+                <div class="row">
+                    <label for="transmission" class="col-4 col-form-label font-weight-bold">Transmission</label>
+                    <label for="color" class="col-4 offset-1 col-form-label font-weight-bold">Color</label>
+                </div>
+                <div class="row">
+                    <select id="transmission" name="transmission" class="col-4 form-control">
+                        <option th:each="trans : ${transList}" th:text="${trans}">Automatic</option>
                     </select>
+                    <input type="text" name="color" id="color" class="col-4 offset-1 form-control" placeholder=""/>     
                 </div>
                 <div class="row">
-                    <label for="year" class="col-4 col-form-label font-weight-bold">Year</label>
-                    <label for="transmission" class="col-4 offset-1 col-form-label font-weight-bold">Transmission</label>
+                    <label for="interior" class="col-4 col-form-label font-weight-bold">Interior</label>
+                    <label for="mileage" class="col-4 offset-1 col-form-label font-weight-bold">Mileage</label>
                 </div>
                 <div class="row">
-                    <input type="text" name="year" id="year" class="col-4 form-control" placeholder=""/>
-                    <select id="transmission" name="transmission" class="col-4 offset-1 form-control">
-                        <option>Automatic</option>
-                    </select>
+                    <input type="text" name="interior" id="interior" class="col-4 form-control" placeholder="" />
+                    <input type="text" name="mileage" id="mileage" class="col-4 offset-1 form-control" placeholder="" />
                 </div>
                 <div class="row">
-                    <label for="color" class="col-4 col-form-label font-weight-bold">Color</label>
-                    <label for="interior" class="col-4 offset-1 col-form-label font-weight-bold">Interior</label>
+                    <label for="vin" class="col-4 col-form-label font-weight-bold">VIN #</label>
+                    <label for="msrp" class="col-4 offset-1 col-form-label font-weight-bold">MSRP</label>
                 </div>
                 <div class="row">
-                    <select id="color" name="color" class="col-4 form-control">
-                        <option>Black</option>
-                    </select>
-                    <select id="interior" name="interior" class="col-4 offset-1 form-control">
-                        <option>Black</option>
-                    </select>
+                    <input type="text" name="vin" id="vin" class="col-4 form-control" placeholder=""/>
+                    <input type="text" name="msrp" id="msrp" class="col-4 offset-1 form-control" placeholder=""/>  
                 </div>
                 <div class="row">
-                    <label for="mileage" class="col-4 col-form-label font-weight-bold">Mileage</label>
-                    <label for="vin" class="col-4 offset-1 col-form-label font-weight-bold">VIN #</label>
-                </div>
-                <div class="row">
-                    <input type="text" name="mileage" id="mileage" class="col-4 form-control" placeholder=""/>
-                    <input type="text" name="vin" id="vin" class="col-4 offset-1 form-control" placeholder=""/>
-                </div>
-                <div class="row">
-                    <label for="msrp" class="col-4 col-form-label font-weight-bold">MSRP</label>
-                    <label for="salePrice" class="col-4 offset-1 col-form-label font-weight-bold">Sale Price</label>
+                    <label for="salePrice" class="col-4 col-form-label font-weight-bold">Sale Price</label>
                 </div>
                 <div class="row">
                     <input type="text" name="msrp" id="msrp" class="col-4 form-control" placeholder=""/>
@@ -96,7 +129,7 @@
                     <label for="description" class="col-9 col-form-label font-weight-bold">Description</label>
                 </div>
                 <div class="row">
-                    <textarea type="text" name="description" id="description" class="col-9 form-control" placeholder=""/></textarea>
+                    <textarea type="text" name="description" id="description" class="col-9 form-control" placeholder=""></textarea>
                 </div>
                 <div class="row">
                     <label for="picture" class="col-4 col-form-label font-weight-bold">Picture</label>

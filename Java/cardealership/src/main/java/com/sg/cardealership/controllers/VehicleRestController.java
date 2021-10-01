@@ -17,6 +17,5 @@ public class VehicleRestController {
     @GetMapping
     public List<Vehicle> getAll() {
         return vehicleDao.getAllVehicles();
-    }
-    
+    }  
 }
