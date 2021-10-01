@@ -61,7 +61,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .csrf()
             .disable()
             .authorizeRequests()
-            .antMatchers("/", "/home/**", "/inventory/**", "/img/**", "/js/**").permitAll()
+            .antMatchers("/", "/home/**", "/inventory/**", "/img/**", "/js/**", "/api/**").permitAll()
             .antMatchers("/admin/**").access("hasAuthority('Admin')")
             .antMatchers("/sales/**").access("hasAuthority('Sales')")
             .anyRequest()
