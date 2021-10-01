@@ -26,7 +26,7 @@ public class InventoryController {
     
     @GetMapping("/used")
     public String displayUsedVehicles(Model model) {
-       return ""; 
+       return "used"; 
     }
     
     @GetMapping("/details")
