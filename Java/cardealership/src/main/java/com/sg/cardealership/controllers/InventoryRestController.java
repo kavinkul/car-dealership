@@ -34,4 +34,9 @@ public class InventoryRestController {
     public List<Vehicle> getUsed() {
         return invService.getUsedVehicles();
     }
+    
+    @GetMapping("new/details/{1}")
+    public Vehicle getVehicle(String vin){
+        return invService.getVehicle(vin);
+    }
 }

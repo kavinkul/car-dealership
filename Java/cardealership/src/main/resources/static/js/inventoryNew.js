@@ -13,3 +13,15 @@ function loadVehicles() {
     });
 }
 
+function loadAVehicle(vin) {
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/inventory/detail/' + vin,
+        success: showVehicleDetail,
+        error: function(){
+            
+        }
+        
+    });
+}
+
