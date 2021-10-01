@@ -41,7 +41,7 @@ function handleVehicles(vehicleArray) {
         row += '<div class="row justify-content-center">';
         row += '<button  type="button" id="detailButton" \n\
                         class="btn btn-primary pull-right"\n\
-                        onclick="showVehicleDetail('+vehicle.vin+')">Details';
+                        onclick="loadAVehicle('+vehicle.vin+')">Details';
         row += '</button>';
         row += '</div>';
         row += '</div>';
