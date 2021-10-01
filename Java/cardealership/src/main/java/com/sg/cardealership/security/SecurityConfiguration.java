@@ -61,7 +61,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .csrf()
             .disable()
             .authorizeRequests()
-            .antMatchers("/home/**", "/inventory/**", "/img/**", "/js/**").permitAll()
+            .antMatchers("/", "/home/**", "/inventory/**", "/img/**", "/js/**").permitAll()
             .antMatchers("/admin/**").access("hasAuthority('Admin')")
             .antMatchers("/sales/**").access("hasAuthority('Sales')")
             .anyRequest()
@@ -70,6 +70,9 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .formLogin()
 			.loginPage("/account/login")
             .successHandler(customAuthenticationSuccessHandler())
-			.permitAll();
+			.permitAll()
+            .and()
+            .logout()
+            .logoutSuccessUrl("/home");
     }
 }

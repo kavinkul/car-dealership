@@ -16,7 +16,7 @@ CREATE TABLE `User` (
 	Email VARCHAR(40) PRIMARY KEY,
     FirstName VARCHAR(40) NOT NULL,
     LastName VARCHAR(40) NOT NULL,
-    PasswordHash CHAR(64) NOT NULL,
+    PasswordHash CHAR(110) NOT NULL,
     `Role` ENUM('Sales', 'Admin', 'Disabled')
 );
 

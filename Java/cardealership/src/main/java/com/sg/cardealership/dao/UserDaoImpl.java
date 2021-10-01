@@ -66,11 +66,12 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void editUser(User user) {
-        final String UPDATE_USER = "UPDATE user SET firstName = ?, lastName = ?, role = ? "
+        final String UPDATE_USER = "UPDATE user SET firstName = ?, lastName = ?, PasswordHash = ?, role = ? "
                 + "WHERE email = ?";
         jdbc.update(UPDATE_USER,
                 user.getFirstName(),
                 user.getLastName(),
+                user.getPasswordHash(),
                 user.getRole().toString(),
                 user.getEmail());
     }
