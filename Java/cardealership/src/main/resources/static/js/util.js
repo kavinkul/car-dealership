@@ -39,8 +39,9 @@ function handleVehicles(vehicleArray) {
         row += tableEntry('Sale Price', '$ ' + vehicle.salesPrice);
         row += tableEntry('MSRP', '$ ' + vehicle.msrp);
         row += '<div class="row justify-content-center">';
-        row += '<button  type="button" onclick="showVehicleDetailDiv" id="detailButton" \n\
-                        class="btn btn-primary pull-right">Details';
+        row += '<button  type="button" id="detailButton" \n\
+                        class="btn btn-primary pull-right"\n\
+                        onclick="showVehicleDetail('+vehicle.vin+')">Details';
         row += '</button>';
         row += '</div>';
         row += '</div>';
@@ -64,22 +65,51 @@ function tableEntry(title, value) {
     return row;
 }
 
+function showVehicleDetail(vehicle){
+    var content = $('#vehicleDetail');
+    
+    var row = '<div class="container bg-light p-3 my-3 border">';
 
-
-function detailButtonListener() {
-
-    $('#detailButton').click(function(event) {
-
-      //$('#errorMessagesMain').empty();
-	    
-      var vin = $('#vin').val();
-	    
-      vehicleDetail(vin);
-      }
-    );
-}
-
-function showVehicleDetailDiv(){
+        // Make, Model, Year 
+        row += '<div class="row">';
+        row += '<h5 class="col-12 pull-left my-2">' 
+                + vehicle.model.year + ' '
+                + vehicle.model.make.name + ' '
+                + vehicle.model.name;
+        row += '</div>';
+        
+        row += '<div class="row">';
+        
+        // Picture
+        row += '<img class="col-2" src="../img/carPlaceholder.png" style="max-width: 10rem;"/>';
+        
+        // BodyStyle, Transmission, ExteriorColor
+        row += '<div class="col-4">';
+        row += tableEntry('Body Style', vehicle.bodyStyle);
+        row += tableEntry('Trans', vehicle.trim.transmission);
+        row += tableEntry('Color', vehicle.trim.exteriorColor);
+        row += '</div>';
+        
+        // InteriorColor, Mileage, VIN
+        row += '<div class="col-3">';
+        row += tableEntry('Interior', vehicle.trim.interiorColor);
+        row += tableEntry('Mileage', vehicle.vehicleCondition.mileage 
+                + ' ' + vehicle.vehicleCondition.unit);
+        row += tableEntry('VIN #', vehicle.vin);
+        row += '</div>';
+        
+        // SalesPrice, MSRP
+        row += '<div class="col-3">';
+        row += tableEntry('Sale Price', '$ ' + vehicle.salesPrice);
+        row += tableEntry('MSRP', '$ ' + vehicle.msrp);
+        row += '<div class="row justify-content-center">';
+        row += '</div>';
+        row += '</div>';
+        
+        row += '</div>';
+        
+        content.append(row);
+    
     $('#searchResult').hide();
     $('#vehicleDetail').show();
 }
