@@ -78,6 +78,7 @@
                     <label for="lastName" class="col-4 offset-1 col-form-label font-weight-bold">Last Name</label>
                 </div>
                 <div class="row">
+                    <input type="hidden" name="adminEmail" id="adminEmail" class="form-control" th:value="${#authentication.name}" required>
                     <input th:value="${user.firstName}" type="text" name="firstName" id="firstName" class="col-4 form-control" required>
                     <input th:value="${user.lastName}" type="text" name="lastName" id="lastName" class="col-4 offset-1 form-control" required>
                 </div>

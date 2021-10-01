@@ -128,10 +128,18 @@ public class AdminController {
 
     @PostMapping("/EditUser")
     public String editUser(HttpServletRequest request) {
+        String adminEmail = request.getParameter("adminEmail");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String role = request.getParameter("role");
+
+        // Admins are not allowed to edit themselves for whatever reason.
+
+        if (adminEmail.equals(email)) {
+            return "redirect:/admin/Users";
+        }
+
         try {
             adminService.editUser(firstName, lastName, email, role);
         } catch (AdminServiceInvalidDataException | SQLException e) {

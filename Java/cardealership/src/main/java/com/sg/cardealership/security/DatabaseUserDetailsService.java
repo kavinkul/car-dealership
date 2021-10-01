@@ -5,6 +5,7 @@
  */
 package com.sg.cardealership.security;
 
+import com.sg.cardealership.models.Role;
 import com.sg.cardealership.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -30,7 +31,7 @@ public class DatabaseUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String usernameEmail)
             throws UsernameNotFoundException {
         com.sg.cardealership.models.User inDBuser = adminService.getUser(usernameEmail);
-        if (inDBuser == null) {
+        if (inDBuser == null || inDBuser.getRole() == Role.DISABLED) {
             throw new UsernameNotFoundException(usernameEmail);
         }
         UserDetails user = User.withUsername(inDBuser.getEmail()).password(inDBuser.getPasswordHash()).authorities(inDBuser.getRole().getValue()).build();
