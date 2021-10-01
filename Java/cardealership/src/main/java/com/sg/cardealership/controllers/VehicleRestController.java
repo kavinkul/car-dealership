@@ -51,7 +51,7 @@ public class VehicleRestController {
                                      : Transmission.MANUAL);
         
         
-        Vehicle addVehicle = new Vehicle("123456789012AS567",
+        Vehicle addVehicle = new Vehicle(vehicle.get("vin"),
                                         model,
                                         condition,
                                         vehicle.get("bodyStyle"),
