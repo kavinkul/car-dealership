@@ -9,9 +9,20 @@ function saveVehicle() {
         
         $.ajax({
             type: 'POST',
-            url: '',
+            url: 'http://localhost:8080/api/vehicle',
             data: JSON.stringify({
-                vin: $('').val()
+                vin: $('#vin').val(),
+                make: $('#make').val(),
+                model: $('#model').val(),
+                body: $('#bodyStyle').val(),
+                type: $('#type').val(),
+                color: $('#color').val(),
+                interior: $('#interior').val(),
+                mileage: $('#mileage').val(),
+                msrp: $('#msrp').val(),
+                salePrice: $('#salePrice').val(),
+                description: $('#description').val(),
+                picture: $('#filePicture').val()
             }),
             headers: {
                 'Accept': 'application/json',
@@ -19,10 +30,10 @@ function saveVehicle() {
             },
             'dataType': 'json',
             success: function() {
-                
+                alert('insert success');
             },
             error: function() {
-                
+                alert('insert fail');
             }
         });
     });
