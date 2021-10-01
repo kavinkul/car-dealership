@@ -1,0 +1,272 @@
+<!-- Austin Graham 09/30/2021 -->
+<!-- html template file for viewing new inventory -->
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>New Inventory</title>
+    <style>
+        .card {
+            border: 3px solid rgba(0, 0, 0, 0.5);
+        }
+        .card-img-left {
+            flex-direction: row;
+        }
+    </style>
+  </head>
+  <body>
+  <!-- Main Body of Page -->
+    <div class="container">
+      
+      <!-- ------------------------Menu Bar--------------------------------- -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <img class="navbar-brand" th:src="@{/img/carPlaceholder.png}" width="30" height="30" />
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/inventory/new">New Inventory</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/inventory/used">Used Inventory</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/specials">Specials</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/contact">Contacts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="/sales">Sales</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Admin</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="admin/vehicles">Vehicles</a>
+                            <a class="dropdown-item" href="admin/users">Users</a>
+                            <a class="dropdown-item" href="admin/makes">Makes</a>
+                            <a class="dropdown-item" href="admin/models">Models</a>
+                            <a class="dropdown-item" href="admin/adminSpecials">Specials</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+      
+      <!-- ------------------------Page Header------------------------------ -->
+      <div>
+        <h2>New Vehicles</h2>
+      </div>  
+      <!-- ------------------------Search Bar------------------------------- -->
+        <div class="container" style="border:3px solid #cecece;">
+            <div class="row">
+                <h5 class="col-12 pull-left my-2">Quick Search</h5>
+            </div>
+            <form class="form-inline">
+                <div class="row">
+                    <div class="col-4 form-group">
+                        <input type="text" 
+                               name="searchText"
+                               id="searchText" 
+                               class="form-control" 
+                               placeholder="Enter make, model, or year"/>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="minPrice" 
+                               class="form-label font-weight-bold mr-2">Price</label>
+                        <select id="minPrice" 
+                                name="minPrice" 
+                                class="form-control mr-2">
+                            <option selected>No Min</option>
+                            <option value="10000">$10,000</option>
+                            <option value="20000">$20,000</option>
+                            <option value="30000">$30,000</option>
+                            <option value="40000">$40,000</option>
+                        </select>
+
+                        <select id="maxPrice" 
+                                name="maxPrice" 
+                                class="form-control">
+                            <option selected>No Max</option>
+                            <option value="10000">$10,000</option>
+                            <option value="20000">$20,000</option>
+                            <option value="30000">$30,000</option>
+                            <option value="40000">$40,000</option>
+                            <option value="50000">$50,000</option>
+                            <option value="60000">$60,000</option>
+                            <option value="60000">$70,000</option>
+                            <option value="60000">$80,000</option>
+                        </select>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="minYear" class="form-label font-weight-bold mr-2">Year</label>
+                        <select id="minYear" 
+                                name="minYear" 
+                                class="form-control mr-2">
+                            <option selected>No Min</option>
+                            <option value="1990">1990</option>
+                            <option value="2000">2000</option>
+                            <option value="2010">2010</option>
+                            <option value="2020">2020</option>
+                        </select>
+                        <select id="maxYear" 
+                                name="maxYear" 
+                                class="form-control">
+                            <option selected>No Max</option>
+                            <option value="10000">2010</option>
+                            <option value="20000">2015</option>
+                            <option value="30000">2020</option>
+                            <option value="40000">2021</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <a href="#" class="btn btn-primary my-2">Search</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+      <!-- --------------------------Search Results------------------------- --> 
+      <div id="searchResultsDiv">
+        <div>
+          <h2>Search Results</h2>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">2016 Make Model</h5>
+                <div class="row">
+                    <div class="col-1">
+                        <img style="width: 50px; height: 50px;" th:src="@{/img/carPlaceholder.png}"/>
+                    </div>
+                    <div class="col-11">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col text-right font-weight-bold">
+                                                Body Style:
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col text-right font-weight-bold">
+                                                Trans:
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col text-right font-weight-bold">
+                                                Color:
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col">
+                                                SUV
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                Automatic
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                Silver
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="row">
+                                    <div class="col text-right font-weight-bold">
+                                        Interior:
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-right font-weight-bold">
+                                        Mileage:
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-right font-weight-bold">
+                                        VIN #:
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col">
+                                        Black
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        35,000
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        2DS820192D78S123
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col text-right font-weight-bold">
+                                                Sale Price:
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col text-right font-weight-bold">
+                                                MSRP:
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col">
+                                                12,875
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                14,875
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <a href="#" class="btn btn-primary">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+      </div>    
+    <!-- End main body -->
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
